@@ -1,22 +1,42 @@
-import React, { useState, Fragment } from "react";
-import { ListUsers } from "./components/users/ListUser";
+import React, { useState, Fragment, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+
+import { Home } from "./views/Home";
+import { Error } from "./views/Error";
+import { Users } from "./views/Users";
+import { ListUsers, SearchUser } from "./views/users/ListUser";
+
+const KEY = "blogApp.users";
 
 export function App() {
-  const [users, setUsers] = useState([
-    { id: 1, username: "Luis" },
-    { id: 2, username: "Jose" },
-  ]);
-
-  const newUser = () => {
-    setUsers((data) => {
-      return [...data, { id: data[data.length - 1].id + 1, username: "A" }];
-    });
-  };
-
   return (
     <Fragment>
-      <ListUsers users={users} />
-      <button onClick={newUser}>Search users</button>
+      <Router>
+        <nav
+          style={{
+            display: "flex",
+            justifyContent: "space-around",
+            width: "auto",
+          }}
+        >
+          <Link to="/">Home</Link>
+          <Link to="/auth/signup">Signup</Link>
+          <Link to="/auth/login">Login</Link>
+          <Link to="/dashboard/users">Users</Link>
+          <Link to="/dashboard/profiles">Profiles</Link>
+          <Link to="/dashboard/posts">Posts</Link>
+        </nav>
+
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/dashboard/users" element={<Users />} />
+          <Route path="/dashboard/users/list" element={<ListUsers />} />
+          <Route path="/dashboard/users/search" element={<SearchUser />} />
+          <Route path="/dashboard/users/edit" element={<Users />} />
+
+          <Route path="*" element={<Error />} />
+        </Routes>
+      </Router>
     </Fragment>
   );
 }
