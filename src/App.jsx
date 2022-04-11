@@ -1,4 +1,4 @@
-import React, { useState, Fragment, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 import { Home } from "./components/Home";
@@ -11,8 +11,21 @@ import { SearchUser } from "./components/users/SearchUser";
 const KEY = "blogApp.users";
 
 export function App() {
-  return (
-    <Fragment>
+  const [status, setStatus] = useState(false);
+
+  // Get status of API
+  useEffect(() => {
+    async function fetchStatus() {
+      const response = await fetch("http://localhost:5500/status", {
+        method: "GET",
+      });
+      setStatus(response.ok);
+    }
+    fetchStatus();
+  }, [status]);
+
+  return status ? (
+    <>
       <Router>
         <nav
           style={{
@@ -39,6 +52,8 @@ export function App() {
           <Route path="*" element={<Error />} />
         </Routes>
       </Router>
-    </Fragment>
+    </>
+  ) : (
+    <div>API down</div>
   );
 }

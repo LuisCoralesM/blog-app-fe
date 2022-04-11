@@ -1,4 +1,4 @@
-import React, { useState, Fragment, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { UserItem } from "./UserItem";
 
 export function SearchUser({ props }) {
@@ -43,7 +43,7 @@ export function SearchUser({ props }) {
       <UserItem user={user}></UserItem>
     </>
   ) : (
-    <Fragment>
+    <>
       <h2>Searching user by id</h2>
       <input
         type="text"
@@ -53,6 +53,6 @@ export function SearchUser({ props }) {
         onChange={(e) => handleChange(e)}
       />
       <button onClick={fetchUser}>Search</button>
-    </Fragment>
+    </>
   );
 }

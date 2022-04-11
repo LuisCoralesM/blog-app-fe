@@ -1,4 +1,4 @@
-import React, { useState, Fragment, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { UserItem } from "./UserItem";
 
 export function ListUsers({ props }) {
@@ -27,13 +27,13 @@ export function ListUsers({ props }) {
   }, []);
 
   return (
-    <Fragment>
+    <>
       <h2>List all users</h2>
       <ul>
         {users.map((user) => (
           <UserItem user={user}></UserItem>
         ))}
       </ul>
-    </Fragment>
+    </>
   );
 }

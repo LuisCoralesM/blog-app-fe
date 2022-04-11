@@ -1,17 +1,12 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
 export function Users() {
   let navigate = useNavigate();
   return (
-    <Fragment>
+    <>
       <h2>Users menu</h2>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-around",
-        }}
-      >
+      <div>
         <button
           onClick={() => {
             navigate("/dashboard/users/list");
@@ -34,6 +29,6 @@ export function Users() {
           Delete user
         </button>
       </div>
-    </Fragment>
+    </>
   );
 }
