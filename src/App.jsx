@@ -3,10 +3,13 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 import { Home } from "./components/Home";
 import { Error } from "./components/Error";
+
 import { Users } from "./components/Users";
 import { ListUsers } from "./components/users/ListUser";
 import { DeleteUser } from "./components/users/DeleteUser";
 import { SearchUser } from "./components/users/SearchUser";
+import { Login } from "./components/auth/Login";
+import { Signup } from "./components/auth/Signup";
 
 const KEY = "blogApp.users";
 
@@ -44,6 +47,9 @@ export function App() {
 
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/auth/signup" element={<Signup />} />
+          <Route path="/auth/login" element={<Login />} />
+
           <Route path="/dashboard/users" element={<Users />} />
           <Route path="/dashboard/users/list" element={<ListUsers />} />
           <Route path="/dashboard/users/search" element={<SearchUser />} />
