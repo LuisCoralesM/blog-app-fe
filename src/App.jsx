@@ -1,22 +1,59 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+
+import { Home } from "./components/Home";
+import { Error } from "./components/Error";
+import { Users } from "./components/Users";
 import { ListUsers } from "./components/users/ListUser";
+import { DeleteUser } from "./components/users/DeleteUser";
+import { SearchUser } from "./components/users/SearchUser";
+
+const KEY = "blogApp.users";
 
 export function App() {
-  const [users, setUsers] = useState([
-    { id: 1, username: "Luis" },
-    { id: 2, username: "Jose" },
-  ]);
+  const [status, setStatus] = useState(false);
 
-  const newUser = () => {
-    setUsers((data) => {
-      return [...data, { id: data[data.length - 1].id + 1, username: "A" }];
-    });
-  };
+  // Get status of API
+  useEffect(() => {
+    async function fetchStatus() {
+      const response = await fetch("http://localhost:5500/status", {
+        method: "GET",
+      });
+      setStatus(response.ok);
+    }
+    fetchStatus();
+  }, [status]);
 
-  return (
-    <Fragment>
-      <ListUsers users={users} />
-      <button onClick={newUser}>Search users</button>
-    </Fragment>
+  return status ? (
+    <>
+      <Router>
+        <nav
+          style={{
+            display: "flex",
+            justifyContent: "space-around",
+            width: "auto",
+          }}
+        >
+          <Link to="/">Home</Link>
+          <Link to="/auth/signup">Signup</Link>
+          <Link to="/auth/login">Login</Link>
+          <Link to="/dashboard/users">Users</Link>
+          <Link to="/dashboard/profiles">Profiles</Link>
+          <Link to="/dashboard/posts">Posts</Link>
+        </nav>
+
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/dashboard/users" element={<Users />} />
+          <Route path="/dashboard/users/list" element={<ListUsers />} />
+          <Route path="/dashboard/users/search" element={<SearchUser />} />
+          <Route path="/dashboard/users/edit" element={<DeleteUser />} />
+
+          <Route path="*" element={<Error />} />
+        </Routes>
+      </Router>
+    </>
+  ) : (
+    <div>API down</div>
   );
 }
