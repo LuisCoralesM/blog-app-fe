@@ -1,10 +1,12 @@
 import React, { useState, Fragment, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
-import { Home } from "./views/Home";
-import { Error } from "./views/Error";
-import { Users } from "./views/Users";
-import { ListUsers, SearchUser } from "./views/users/ListUser";
+import { Home } from "./components/Home";
+import { Error } from "./components/Error";
+import { Users } from "./components/Users";
+import { ListUsers } from "./components/users/ListUser";
+import { DeleteUser } from "./components/users/DeleteUser";
+import { SearchUser } from "./components/users/SearchUser";
 
 const KEY = "blogApp.users";
 
@@ -32,7 +34,7 @@ export function App() {
           <Route path="/dashboard/users" element={<Users />} />
           <Route path="/dashboard/users/list" element={<ListUsers />} />
           <Route path="/dashboard/users/search" element={<SearchUser />} />
-          <Route path="/dashboard/users/edit" element={<Users />} />
+          <Route path="/dashboard/users/edit" element={<DeleteUser />} />
 
           <Route path="*" element={<Error />} />
         </Routes>

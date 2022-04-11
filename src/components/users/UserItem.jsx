@@ -4,7 +4,7 @@ export function UserItem({ user }) {
   return user === undefined ? (
     <p>User not found</p>
   ) : (
-    <p>
+    <li>
       {user.id +
         " - " +
         user.username +
@@ -13,7 +13,9 @@ export function UserItem({ user }) {
         " - " +
         user.last_name +
         " - " +
-        user.email}
-    </p>
+        user.email +
+        " - " +
+        (user.deleted_at != null ? "deleted" : "active")}
+    </li>
   );
 }
