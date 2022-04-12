@@ -3,56 +3,67 @@ import { UserItem } from "./UserItem";
 
 export function DeleteUser({ props }) {
   const [user, setUser] = useState(undefined);
-  const [id, setId] = useState(0);
   const [isDeleted, setDeleted] = useState(false);
+  const [isLogged, setIsLogged] = useState(false);
 
-  // async function fetchUser() {
-  //   const response = await fetch(
-  //     "http://localhost:5500/dashboard/users/" + id,
-  //     {
-  //       method: "GET",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         "Access-Control-Allow-Origin": "*",
-  //         Authorization:
-  //           "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwiZmlyc3RfbmFtZSI6Ikx1aXMiLCJsYXN0X25hbWUiOiJBQSIsInVzZXJuYW1lIjoibHVpc2NvcmFsZXMxIiwiZW1haWwiOiJsdWlzQGVtYWlsMS5jb20iLCJwYXNzd29yZCI6IiRhcmdvbjJpZCR2PTE5JG09NDA5Nix0PTMscD0xJGo0QW5sakZkaTNDbnBXL0t4NUxQc3ckeTBVNk1RdlY0VlVLRjdJbGN3RE9PRzNaUERycGxUVVl1aGpxM2xkc3IyVSIsInByb2ZpbGVfaWQiOjgsImNyZWF0ZWRfYXQiOiIyMDIyLTA0LTExVDE0OjI1OjU3Ljk4MVoiLCJkZWxldGVkX2F0IjpudWxsLCJpYXQiOjE2NDk2ODcxODd9.Un1nLnbVnf1tidI3Ot048rwmE_2LmdMTLkm2bPLHhKk",
-  //       },
-  //     }
-  //   );
-  //   if (!response.ok) return console.log(response.status);
-  //   setDeleted(true);
-  //   const data = await response.json();
-  //   data.data === null ? setUser(undefined) : setUser(data.data);
-  // }
+  useEffect(() => {
+    localStorage.getItem("token") === null
+      ? setIsLogged(false)
+      : setIsLogged(true);
+  }, []);
 
-  async function deleteUser() {
+  useEffect(() => {
+    // GET OWN USER DATA TO THEN DELETE
+    async function fetchOwnUser() {
+      const response = await fetch("http://localhost:5500/dashboard/users/", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          Authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
+        },
+      });
+      if (!response.ok) return console.log(response.status);
+      const data = await response.json();
+      data.data === null ? setUser(undefined) : setUser(data.data);
+      if (data.data.deleted_at !== null) setDeleted(true);
+    }
+    fetchOwnUser();
+  }, []);
+
+  async function deleteUser(e) {
+    e.preventDefault();
     const response = await fetch("http://localhost:5500/dashboard/users/", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*",
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwiZmlyc3RfbmFtZSI6Ikx1aXMiLCJsYXN0X25hbWUiOiJBQSIsInVzZXJuYW1lIjoibHVpc2NvcmFsZXMxIiwiZW1haWwiOiJsdWlzQGVtYWlsMS5jb20iLCJwYXNzd29yZCI6IiRhcmdvbjJpZCR2PTE5JG09NDA5Nix0PTMscD0xJGo0QW5sakZkaTNDbnBXL0t4NUxQc3ckeTBVNk1RdlY0VlVLRjdJbGN3RE9PRzNaUERycGxUVVl1aGpxM2xkc3IyVSIsInByb2ZpbGVfaWQiOjgsImNyZWF0ZWRfYXQiOiIyMDIyLTA0LTExVDE0OjI1OjU3Ljk4MVoiLCJkZWxldGVkX2F0IjpudWxsLCJpYXQiOjE2NDk2ODcxODd9.Un1nLnbVnf1tidI3Ot048rwmE_2LmdMTLkm2bPLHhKk",
+        Authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
       },
     });
-    const data = await response.json();
+    if (!response.ok) return console.log(response.status);
     setDeleted(true);
-
-    console.log(data.data);
+    localStorage.clear();
   }
 
-  return isDeleted ? (
+  return !isLogged ? (
     <>
       <h2>Delete own user</h2>
-      {/* <button onClick={fetchUser}>Search</button> */}
+      <p>Log in first!</p>
+    </>
+  ) : isDeleted ? (
+    <>
+      <h2>Delete own user</h2>
       <p>User deleted</p>
     </>
   ) : (
     <>
       <h2>Delete own user</h2>
       <p>Are you sure you want to delete your user?</p>
-      {/* <UserItem user={user}></UserItem> */}
-      <button onClick={deleteUser}>Confirm delete</button>
+      <UserItem user={user}></UserItem>
+      <form onSubmit={(e) => deleteUser(e)}>
+        <button>Confirm delete</button>
+      </form>
     </>
   );
 }

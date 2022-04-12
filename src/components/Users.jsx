@@ -9,6 +9,13 @@ export function Users() {
       <div>
         <button
           onClick={() => {
+            navigate("/dashboard/users/myuser");
+          }}
+        >
+          My user
+        </button>
+        <button
+          onClick={() => {
             navigate("/dashboard/users/list");
           }}
         >
