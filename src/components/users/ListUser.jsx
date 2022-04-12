@@ -3,6 +3,13 @@ import { UserItem } from "./UserItem";
 
 export function ListUsers({ props }) {
   const [users, setUsers] = useState([]);
+  const [isLogged, setIsLogged] = useState(false);
+
+  useEffect(() => {
+    localStorage.getItem("token") === null
+      ? setIsLogged(false)
+      : setIsLogged(true);
+  }, []);
 
   useEffect(() => {
     async function fetchUser() {
@@ -26,7 +33,12 @@ export function ListUsers({ props }) {
     fetchUser();
   }, []);
 
-  return (
+  return !isLogged ? (
+    <>
+      <h2>List all users</h2>
+      <p>Log in first!</p>
+    </>
+  ) : (
     <>
       <h2>List all users</h2>
       <ul>

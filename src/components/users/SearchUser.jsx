@@ -6,6 +6,14 @@ export function SearchUser({ props }) {
   const [id, setId] = useState(0);
   const [hasSearched, setSearch] = useState(false);
 
+  const [isLogged, setIsLogged] = useState(false);
+
+  useEffect(() => {
+    localStorage.getItem("token") === null
+      ? setIsLogged(false)
+      : setIsLogged(true);
+  }, []);
+
   function handleChange(e) {
     Number(e.target.value) ? setId(e.target.value) : setId(0);
   }
@@ -29,7 +37,12 @@ export function SearchUser({ props }) {
     data.data === null ? setUser(undefined) : setUser(data.data);
   }
 
-  return (
+  return !isLogged ? (
+    <>
+      <h2>List all users</h2>
+      <p>Log in first!</p>
+    </>
+  ) : (
     <>
       <h2>Searching user by id</h2>
       {hasSearched ? (
