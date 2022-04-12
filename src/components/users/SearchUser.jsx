@@ -29,30 +29,33 @@ export function SearchUser({ props }) {
     data.data === null ? setUser(undefined) : setUser(data.data);
   }
 
-  return hasSearched ? (
+  return (
     <>
       <h2>Searching user by id</h2>
-      <input
-        type="text"
-        placeholder="get by id"
-        name="id"
-        id="search-input"
-        onChange={(e) => handleChange(e)}
-      />
-      <button onClick={fetchUser}>Search</button>
-      <UserItem user={user}></UserItem>
-    </>
-  ) : (
-    <>
-      <h2>Searching user by id</h2>
-      <input
-        type="text"
-        placeholder="get by id"
-        name="id"
-        id="search-input"
-        onChange={(e) => handleChange(e)}
-      />
-      <button onClick={fetchUser}>Search</button>
+      {hasSearched ? (
+        <>
+          <input
+            type="text"
+            placeholder="get by id"
+            name="id"
+            id="search-input"
+            onChange={(e) => handleChange(e)}
+          />
+          <button onClick={fetchUser}>Search</button>
+          <UserItem user={user}></UserItem>
+        </>
+      ) : (
+        <>
+          <input
+            type="text"
+            placeholder="get by id"
+            name="id"
+            id="search-input"
+            onChange={(e) => handleChange(e)}
+          />
+          <button onClick={fetchUser}>Search</button>
+        </>
+      )}
     </>
   );
 }

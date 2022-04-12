@@ -8,6 +8,12 @@ export function Signup({ props }) {
   const [username, setUsername] = useState();
   const [hasRegistered, setHasRegistered] = useState(false);
 
+  useEffect(() => {
+    localStorage.getItem("token") === null
+      ? setHasRegistered(false)
+      : setHasRegistered(true);
+  }, []);
+
   async function signupUser(e) {
     e.preventDefault();
     const response = await fetch("http://localhost:5500/auth/signup/", {
@@ -25,13 +31,14 @@ export function Signup({ props }) {
       }),
     });
     if (!response.ok) return console.log(response.status);
+    setHasRegistered(true);
   }
 
   return (
     <>
       <h2>Register</h2>
       {!hasRegistered ? (
-        <form onSubmit={signupUser}>
+        <form onSubmit={(e) => signupUser(e)}>
           <label>First name:</label>
           <br />
           <input
@@ -57,6 +64,7 @@ export function Signup({ props }) {
             name="username"
             placeholder="johndoe123"
             onChange={(e) => setUsername(e.target.value)}
+            required
           />
           <br />
           <label>Email:</label>
@@ -66,6 +74,7 @@ export function Signup({ props }) {
             name="email"
             placeholder="john@email.com"
             onChange={(e) => setEmail(e.target.value)}
+            required
           />
           <br />
           <label>Password:</label>
@@ -74,11 +83,12 @@ export function Signup({ props }) {
             type="password"
             name="psw"
             onChange={(e) => setPassword(e.target.value)}
+            required
+            minlength="8"
+            maxlength="12"
           />
           <br />
-          <button type="submit" onSubmit={() => setHasRegistered(true)}>
-            Register
-          </button>
+          <button type="submit">Register</button>
         </form>
       ) : (
         "Has registered!"

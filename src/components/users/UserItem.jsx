@@ -2,7 +2,7 @@ import React from "react";
 
 export function UserItem({ user }) {
   return user === undefined ? (
-    <p>User not found</p>
+    <li>User not found</li>
   ) : (
     <li>
       {user.id +

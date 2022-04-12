@@ -10,6 +10,7 @@ import { DeleteUser } from "./components/users/DeleteUser";
 import { SearchUser } from "./components/users/SearchUser";
 import { Login } from "./components/auth/Login";
 import { Signup } from "./components/auth/Signup";
+import { Logout } from "./components/auth/Logout";
 
 const KEY = "blogApp.users";
 
@@ -40,6 +41,8 @@ export function App() {
           <Link to="/">Home</Link>
           <Link to="/auth/signup">Signup</Link>
           <Link to="/auth/login">Login</Link>
+          <Link to="/auth/logout">Logout</Link>
+
           <Link to="/dashboard/users">Users</Link>
           <Link to="/dashboard/profiles">Profiles</Link>
           <Link to="/dashboard/posts">Posts</Link>
@@ -49,6 +52,7 @@ export function App() {
           <Route path="/" element={<Home />} />
           <Route path="/auth/signup" element={<Signup />} />
           <Route path="/auth/login" element={<Login />} />
+          <Route path="/auth/logout" element={<Logout />} />
 
           <Route path="/dashboard/users" element={<Users />} />
           <Route path="/dashboard/users/list" element={<ListUsers />} />
