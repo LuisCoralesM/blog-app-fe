@@ -11,6 +11,7 @@ import { SearchUser } from "./components/users/SearchUser";
 import { Login } from "./components/auth/Login";
 import { Signup } from "./components/auth/Signup";
 import { Logout } from "./components/auth/Logout";
+import { MyUser } from "./components/users/MyUser";
 
 const KEY = "blogApp.users";
 
@@ -54,7 +55,8 @@ export function App() {
           <Route path="/auth/login" element={<Login />} />
           <Route path="/auth/logout" element={<Logout />} />
 
-          <Route path="/dashboard/users" element={<Users />} />
+          <Route path="/dashboard/users/" element={<Users />} />
+          <Route path="/dashboard/users/myuser" element={<MyUser />} />
           <Route path="/dashboard/users/list" element={<ListUsers />} />
           <Route path="/dashboard/users/search" element={<SearchUser />} />
           <Route path="/dashboard/users/edit" element={<DeleteUser />} />

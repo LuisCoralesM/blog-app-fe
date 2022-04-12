@@ -13,17 +13,18 @@ export function DeleteUser({ props }) {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
-          Authorization: "Bearer " + localStorage.getItem("token"),
+          Authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
         },
       });
       if (!response.ok) return console.log(response.status);
-      setDeleted(true);
       const data = await response.json();
       data.data === null ? setUser(undefined) : setUser(data.data);
     }
+    fetchOwnUser();
   }, []);
 
-  async function deleteUser() {
+  async function deleteUser(e) {
+    e.preventDefault();
     const response = await fetch("http://localhost:5500/dashboard/users/", {
       method: "DELETE",
       headers: {
@@ -32,10 +33,9 @@ export function DeleteUser({ props }) {
         Authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
       },
     });
-    const data = await response.json();
+    if (!response.ok) return console.log(response.status);
     setDeleted(true);
-
-    console.log(data.data);
+    localStorage.clear();
   }
 
   return isDeleted ? (
@@ -48,7 +48,9 @@ export function DeleteUser({ props }) {
       <h2>Delete own user</h2>
       <p>Are you sure you want to delete your user?</p>
       <UserItem user={user}></UserItem>
-      <button onClick={deleteUser}>Confirm delete</button>
+      <form onSubmit={(e) => deleteUser(e)}>
+        <button>Confirm delete</button>
+      </form>
     </>
   );
 }

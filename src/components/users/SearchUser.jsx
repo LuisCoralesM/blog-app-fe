@@ -10,7 +10,8 @@ export function SearchUser({ props }) {
     Number(e.target.value) ? setId(e.target.value) : setId(0);
   }
 
-  async function fetchUser() {
+  async function fetchUser(e) {
+    e.preventDefault();
     setSearch(true);
     const response = await fetch(
       "http://localhost:5500/dashboard/users/" + id,
@@ -33,26 +34,30 @@ export function SearchUser({ props }) {
       <h2>Searching user by id</h2>
       {hasSearched ? (
         <>
-          <input
-            type="text"
-            placeholder="get by id"
-            name="id"
-            id="search-input"
-            onChange={(e) => handleChange(e)}
-          />
-          <button onClick={fetchUser}>Search</button>
+          <form onSubmit={(e) => fetchUser(e)}>
+            <input
+              type="text"
+              placeholder="get by id"
+              name="id"
+              id="search-input"
+              onChange={(e) => handleChange(e)}
+            />
+            <button type="submit">Search</button>
+          </form>
           <UserItem user={user}></UserItem>
         </>
       ) : (
         <>
-          <input
-            type="text"
-            placeholder="get by id"
-            name="id"
-            id="search-input"
-            onChange={(e) => handleChange(e)}
-          />
-          <button onClick={fetchUser}>Search</button>
+          <form onSubmit={(e) => fetchUser(e)}>
+            <input
+              type="text"
+              placeholder="get by id"
+              name="id"
+              id="search-input"
+              onChange={(e) => handleChange(e)}
+            />
+            <button type="submit">Search</button>
+          </form>
         </>
       )}
     </>
