@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { ProfileItem } from "./ProfileItem";
 
-export function ListProfile({ props }) {
-  const [profiles, setProfiles] = useState([]);
+export function MyProfile({ props }) {
+  const [profile, setProfile] = useState(undefined);
   const [isLogged, setIsLogged] = useState(false);
 
   useEffect(() => {
@@ -12,9 +12,9 @@ export function ListProfile({ props }) {
   }, []);
 
   useEffect(() => {
-    async function fetchUser() {
+    async function fetchOwnProfile() {
       const response = await fetch(
-        "http://localhost:5500/dashboard/profiles/all",
+        "http://localhost:5500/dashboard/profiles/",
         {
           method: "GET",
           headers: {
@@ -26,26 +26,21 @@ export function ListProfile({ props }) {
         }
       );
       if (!response.ok) return console.log(response.status);
-
       const data = await response.json();
-      setProfiles(data.data);
+      data.data === null ? setProfile(undefined) : setProfile(data.data);
     }
-    fetchUser();
+    fetchOwnProfile();
   }, []);
 
   return !isLogged ? (
     <>
-      <h2>List all profiles</h2>
+      <h2>My profile</h2>
       <p>Log in first!</p>
     </>
   ) : (
     <>
-      <h2>List all profiles</h2>
-      <ul>
-        {profiles.map((profile) => (
-          <ProfileItem profile={profile}></ProfileItem>
-        ))}
-      </ul>
+      <h2>My profile</h2>
+      <ProfileItem profile={profile}></ProfileItem>
     </>
   );
 }

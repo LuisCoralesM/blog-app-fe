@@ -12,6 +12,11 @@ import { Login } from "./components/auth/Login";
 import { Signup } from "./components/auth/Signup";
 import { Logout } from "./components/auth/Logout";
 import { MyUser } from "./components/users/MyUser";
+import { ListProfile } from "./components/profiles/ListProfile";
+import { Profiles } from "./components/Profiles";
+import { MyProfile } from "./components/profiles/MyProfile";
+import { SearchProfile } from "./components/profiles/SearchProfile";
+import { EditProfile } from "./components/profiles/EditProfile";
 
 const KEY = "blogApp.users";
 
@@ -61,6 +66,14 @@ export function App() {
           <Route path="/dashboard/users/search" element={<SearchUser />} />
           <Route path="/dashboard/users/edit" element={<DeleteUser />} />
 
+          <Route path="/dashboard/profiles/" element={<Profiles />} />
+          <Route path="/dashboard/profiles/myprofile" element={<MyProfile />} />
+          <Route path="/dashboard/profiles/list" element={<ListProfile />} />
+          <Route
+            path="/dashboard/profiles/search"
+            element={<SearchProfile />}
+          />
+          <Route path="/dashboard/profiles/edit" element={<EditProfile />} />
           <Route path="*" element={<Error />} />
         </Routes>
       </Router>

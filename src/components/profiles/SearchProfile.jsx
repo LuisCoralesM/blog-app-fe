@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { UserItem } from "./UserItem";
+import { ProfileItem } from "./ProfileItem";
 
-export function SearchUser({ props }) {
-  const [user, setUser] = useState(undefined);
+export function SearchProfile({ props }) {
+  const [profile, setProfile] = useState(undefined);
   const [id, setId] = useState(0);
   const [hasSearched, setSearch] = useState(false);
 
@@ -22,7 +22,7 @@ export function SearchUser({ props }) {
     e.preventDefault();
     setSearch(true);
     const response = await fetch(
-      "http://localhost:5500/dashboard/users/" + id,
+      "http://localhost:5500/dashboard/profiles/" + id,
       {
         method: "GET",
         headers: {
@@ -34,17 +34,17 @@ export function SearchUser({ props }) {
     );
     if (!response.ok) return console.log(response.status);
     const data = await response.json();
-    data.data === null ? setUser(undefined) : setUser(data.data);
+    data.data === null ? setProfile(undefined) : setProfile(data.data);
   }
 
   return !isLogged ? (
     <>
-      <h2>Searching user by id</h2>
+      <h2>Searching profile by id</h2>
       <p>Log in first!</p>
     </>
   ) : (
     <>
-      <h2>Searching user by id</h2>
+      <h2>Searching profile by id</h2>
       {hasSearched ? (
         <>
           <form onSubmit={(e) => fetchUser(e)}>
@@ -57,7 +57,7 @@ export function SearchUser({ props }) {
             />
             <button type="submit">Search</button>
           </form>
-          <UserItem user={user}></UserItem>
+          <ProfileItem profile={profile}></ProfileItem>
         </>
       ) : (
         <>

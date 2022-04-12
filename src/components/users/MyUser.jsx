@@ -30,7 +30,7 @@ export function MyUser({ props }) {
 
   return !isLogged ? (
     <>
-      <h2>List all users</h2>
+      <h2>My user</h2>
       <p>Log in first!</p>
     </>
   ) : (
