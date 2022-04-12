@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
+import { Login } from "./components/auth/Login";
+import { Signup } from "./components/auth/Signup";
+import { Logout } from "./components/auth/Logout";
+
 import { Home } from "./components/Home";
 import { Error } from "./components/Error";
 
@@ -8,15 +12,21 @@ import { Users } from "./components/Users";
 import { ListUsers } from "./components/users/ListUser";
 import { DeleteUser } from "./components/users/DeleteUser";
 import { SearchUser } from "./components/users/SearchUser";
-import { Login } from "./components/auth/Login";
-import { Signup } from "./components/auth/Signup";
-import { Logout } from "./components/auth/Logout";
 import { MyUser } from "./components/users/MyUser";
+
 import { ListProfile } from "./components/profiles/ListProfile";
 import { Profiles } from "./components/Profiles";
 import { MyProfile } from "./components/profiles/MyProfile";
 import { SearchProfile } from "./components/profiles/SearchProfile";
 import { EditProfile } from "./components/profiles/EditProfile";
+
+import { Posts } from "./components/Posts";
+import { CreatePost } from "./components/posts/CreatePost";
+import { DeletePost } from "./components/posts/DeletePost";
+import { EditPost } from "./components/posts/EditPost";
+import { MyPosts } from "./components/posts/MyPosts";
+import { SearchPost } from "./components/posts/SearchPost";
+import { ListPosts } from "./components/posts/ListPosts";
 
 const KEY = "blogApp.users";
 
@@ -74,6 +84,15 @@ export function App() {
             element={<SearchProfile />}
           />
           <Route path="/dashboard/profiles/edit" element={<EditProfile />} />
+
+          <Route path="/dashboard/posts/" element={<Posts />} />
+          <Route path="/dashboard/posts/create" element={<CreatePost />} />
+          <Route path="/dashboard/posts/myposts" element={<MyPosts />} />
+          <Route path="/dashboard/posts/list" element={<ListPosts />} />
+          <Route path="/dashboard/posts/search" element={<SearchPost />} />
+          <Route path="/dashboard/posts/edit" element={<EditPost />} />
+          <Route path="/dashboard/posts/delete" element={<DeletePost />} />
+
           <Route path="*" element={<Error />} />
         </Routes>
       </Router>

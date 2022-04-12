@@ -1,5 +1,5 @@
 import React from "react";
 
-export function EditPost({ post }) {
+export function MyPosts({ post }) {
   return <></>;
 }
