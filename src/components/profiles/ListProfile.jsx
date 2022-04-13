@@ -33,19 +33,19 @@ export function ListProfile({ props }) {
     fetchUser();
   }, []);
 
-  return !isLogged ? (
+  return (
     <>
       <h2>List all profiles</h2>
-      <p>Log in first!</p>
-    </>
-  ) : (
-    <>
-      <h2>List all profiles</h2>
-      <ul>
-        {profiles.map((profile) => (
-          <ProfileItem profile={profile}></ProfileItem>
-        ))}
-      </ul>
+
+      {!isLogged ? (
+        <p>Log in first!</p>
+      ) : (
+        <ul>
+          {profiles.map((profile) => (
+            <ProfileItem profile={profile}></ProfileItem>
+          ))}
+        </ul>
+      )}
     </>
   );
 }

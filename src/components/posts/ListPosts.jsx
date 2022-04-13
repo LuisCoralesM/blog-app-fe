@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { ProfileItem } from "./ProfileItem";
+import { PostItem } from "./PostItem";
 
-export function MyProfile({ props }) {
-  const [profile, setProfile] = useState(undefined);
+export function ListPosts({ props }) {
+  const [posts, setPosts] = useState([]);
   const [isLogged, setIsLogged] = useState(false);
 
   useEffect(() => {
@@ -12,9 +12,9 @@ export function MyProfile({ props }) {
   }, []);
 
   useEffect(() => {
-    async function fetchOwnProfile() {
+    async function fetchPosts() {
       const response = await fetch(
-        "http://localhost:5500/dashboard/profiles/",
+        "http://localhost:5500/dashboard/posts/all",
         {
           method: "GET",
           headers: {
@@ -27,18 +27,22 @@ export function MyProfile({ props }) {
       );
       if (!response.ok) return console.log(response.status);
       const data = await response.json();
-      data.data === null ? setProfile(undefined) : setProfile(data.data);
+      setPosts(data.data);
     }
-    fetchOwnProfile();
+    fetchPosts();
   }, []);
 
   return (
     <>
-      <h2>My profile</h2>
+      <h2>List all posts</h2>
       {!isLogged ? (
         <p>Log in first!</p>
       ) : (
-        <ProfileItem profile={profile}></ProfileItem>
+        <ul>
+          {posts.map((post) => (
+            <PostItem post={post}></PostItem>
+          ))}
+        </ul>
       )}
     </>
   );

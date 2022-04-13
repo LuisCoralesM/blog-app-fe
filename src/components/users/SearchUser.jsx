@@ -37,40 +37,39 @@ export function SearchUser({ props }) {
     data.data === null ? setUser(undefined) : setUser(data.data);
   }
 
-  return !isLogged ? (
+  return (
     <>
       <h2>Searching user by id</h2>
-      <p>Log in first!</p>
-    </>
-  ) : (
-    <>
-      <h2>Searching user by id</h2>
-      {hasSearched ? (
-        <>
-          <form onSubmit={(e) => fetchUser(e)}>
-            <input
-              type="text"
-              placeholder="get by id"
-              name="id"
-              id="search-input"
-              onChange={(e) => handleChange(e)}
-            />
-            <button type="submit">Search</button>
-          </form>
-          <UserItem user={user}></UserItem>
-        </>
+      {!isLogged ? (
+        <p>Log in first!</p>
       ) : (
         <>
-          <form onSubmit={(e) => fetchUser(e)}>
-            <input
-              type="text"
-              placeholder="get by id"
-              name="id"
-              id="search-input"
-              onChange={(e) => handleChange(e)}
-            />
-            <button type="submit">Search</button>
-          </form>
+          {hasSearched ? (
+            <>
+              <form onSubmit={(e) => fetchUser(e)}>
+                <input
+                  type="text"
+                  placeholder="get by id"
+                  name="id"
+                  id="search-input"
+                  onChange={(e) => handleChange(e)}
+                />
+                <button type="submit">Search</button>
+              </form>
+              <UserItem user={user}></UserItem>
+            </>
+          ) : (
+            <form onSubmit={(e) => fetchUser(e)}>
+              <input
+                type="text"
+                placeholder="get by id"
+                name="id"
+                id="search-input"
+                onChange={(e) => handleChange(e)}
+              />
+              <button type="submit">Search</button>
+            </form>
+          )}
         </>
       )}
     </>

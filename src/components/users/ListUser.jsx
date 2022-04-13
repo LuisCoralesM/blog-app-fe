@@ -33,19 +33,18 @@ export function ListUsers({ props }) {
     fetchUser();
   }, []);
 
-  return !isLogged ? (
+  return (
     <>
       <h2>List all users</h2>
-      <p>Log in first!</p>
-    </>
-  ) : (
-    <>
-      <h2>List all users</h2>
-      <ul>
-        {users.map((user) => (
-          <UserItem user={user}></UserItem>
-        ))}
-      </ul>
+      {!isLogged ? (
+        <p>Log in first!</p>
+      ) : (
+        <ul>
+          {users.map((user) => (
+            <UserItem user={user}></UserItem>
+          ))}
+        </ul>
+      )}
     </>
   );
 }

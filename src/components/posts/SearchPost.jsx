@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { ProfileItem } from "./ProfileItem";
+import { PostItem } from "./PostItem";
 
-export function SearchProfile({ props }) {
-  const [profile, setProfile] = useState(undefined);
-  const [id, setId] = useState(0);
+export function SearchPost({ props }) {
+  const [posts, setPosts] = useState([]);
+  const [username, setUsername] = useState("");
   const [hasSearched, setSearch] = useState(false);
 
   const [isLogged, setIsLogged] = useState(false);
@@ -14,15 +14,11 @@ export function SearchProfile({ props }) {
       : setIsLogged(true);
   }, []);
 
-  function handleChange(e) {
-    Number(e.target.value) ? setId(e.target.value) : setId(0);
-  }
-
-  async function fetchUser(e) {
+  async function fetchPostsByUser(e) {
     e.preventDefault();
     setSearch(true);
     const response = await fetch(
-      "http://localhost:5500/dashboard/profiles/" + id,
+      "http://localhost:5500/dashboard/posts/user/" + username,
       {
         method: "GET",
         headers: {
@@ -34,38 +30,40 @@ export function SearchProfile({ props }) {
     );
     if (!response.ok) return console.log(response.status);
     const data = await response.json();
-    data.data === null ? setProfile(undefined) : setProfile(data.data);
+    setPosts(data.data);
   }
 
   return (
     <>
-      <h2>Searching profile by id</h2>
+      <h2>Searching posts by username</h2>
       {!isLogged ? (
         <p>Log in first!</p>
       ) : (
         <>
           {hasSearched ? (
             <>
-              <form onSubmit={(e) => fetchUser(e)}>
+              <form onSubmit={(e) => fetchPostsByUser(e)}>
                 <input
                   type="text"
-                  placeholder="get by id"
-                  name="id"
+                  placeholder="get by username"
+                  name="username"
                   id="search-input"
-                  onChange={(e) => handleChange(e)}
+                  onChange={(e) => setUsername(e.target.value)}
                 />
                 <button type="submit">Search</button>
               </form>
-              <ProfileItem profile={profile}></ProfileItem>
+              {posts.map((post) => (
+                <PostItem post={post}></PostItem>
+              ))}
             </>
           ) : (
-            <form onSubmit={(e) => fetchUser(e)}>
+            <form onSubmit={(e) => fetchPostsByUser(e)}>
               <input
                 type="text"
-                placeholder="get by id"
-                name="id"
+                placeholder="get by username"
+                name="username"
                 id="search-input"
-                onChange={(e) => handleChange(e)}
+                onChange={(e) => setUsername(e.target.value)}
               />
               <button type="submit">Search</button>
             </form>

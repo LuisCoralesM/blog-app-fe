@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { UserItem } from "./UserItem";
+import { PostItem } from "./PostItem";
 
-export function MyUser({ props }) {
-  const [user, setUser] = useState(undefined);
+export function MyPosts({ props }) {
+  const [posts, setPosts] = useState([]);
   const [isLogged, setIsLogged] = useState(false);
 
   useEffect(() => {
@@ -12,8 +12,8 @@ export function MyUser({ props }) {
   }, []);
 
   useEffect(() => {
-    async function fetchUser() {
-      const response = await fetch("http://localhost:5500/dashboard/users/", {
+    async function fetchOwnPosts() {
+      const response = await fetch("http://localhost:5500/dashboard/posts/", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -23,15 +23,19 @@ export function MyUser({ props }) {
       });
       if (!response.ok) return console.log(response.status);
       const data = await response.json();
-      data.data === null ? setUser(undefined) : setUser(data.data);
+      setPosts(data.data);
     }
-    fetchUser();
+    fetchOwnPosts();
   }, []);
 
   return (
     <>
-      <h2>My user</h2>
-      {!isLogged ? <p>Log in first!</p> : <UserItem user={user}></UserItem>}
+      <h2>My posts</h2>
+      {!isLogged ? (
+        <p>Log in first!</p>
+      ) : (
+        posts.map((post) => <PostItem post={post}></PostItem>)
+      )}
     </>
   );
 }
