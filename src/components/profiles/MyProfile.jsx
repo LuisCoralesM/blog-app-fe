@@ -32,15 +32,14 @@ export function MyProfile({ props }) {
     fetchOwnProfile();
   }, []);
 
-  return !isLogged ? (
+  return (
     <>
       <h2>My profile</h2>
-      <p>Log in first!</p>
-    </>
-  ) : (
-    <>
-      <h2>My profile</h2>
-      <ProfileItem profile={profile}></ProfileItem>
+      {!isLogged ? (
+        <p>Log in first!</p>
+      ) : (
+        <ProfileItem profile={profile}></ProfileItem>
+      )}
     </>
   );
 }

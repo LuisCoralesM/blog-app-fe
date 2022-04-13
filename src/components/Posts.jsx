@@ -16,6 +16,13 @@ export function Posts() {
         </button>
         <button
           onClick={() => {
+            navigate("/dashboard/posts/create");
+          }}
+        >
+          Create post
+        </button>
+        <button
+          onClick={() => {
             navigate("/dashboard/posts/list");
           }}
         >
@@ -26,7 +33,7 @@ export function Posts() {
             navigate("/dashboard/posts/search");
           }}
         >
-          Search post
+          Search post by user
         </button>
         <button
           onClick={() => {

@@ -1,5 +1,5 @@
 import React from "react";
 
-export function DeletePost({ post }) {
+export function DeletePost({ props }) {
   return <></>;
 }

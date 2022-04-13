@@ -7,7 +7,7 @@ export function PostItem({ post }) {
     <li>
       {post.id +
         " - " +
-        post.profile.username +
+        post.profile.user.username +
         " - " +
         post.title +
         " - " +

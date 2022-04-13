@@ -46,24 +46,22 @@ export function DeleteUser({ props }) {
     localStorage.clear();
   }
 
-  return !isLogged ? (
+  return (
     <>
       <h2>Delete own user</h2>
-      <p>Log in first!</p>
-    </>
-  ) : isDeleted ? (
-    <>
-      <h2>Delete own user</h2>
-      <p>User deleted</p>
-    </>
-  ) : (
-    <>
-      <h2>Delete own user</h2>
-      <p>Are you sure you want to delete your user?</p>
-      <UserItem user={user}></UserItem>
-      <form onSubmit={(e) => deleteUser(e)}>
-        <button>Confirm delete</button>
-      </form>
+      {!isLogged ? (
+        <p>Log in first!</p>
+      ) : isDeleted ? (
+        <p>User deleted</p>
+      ) : (
+        <>
+          <p>Are you sure you want to delete your user?</p>
+          <UserItem user={user}></UserItem>
+          <form onSubmit={(e) => deleteUser(e)}>
+            <button>Confirm delete</button>
+          </form>
+        </>
+      )}
     </>
   );
 }

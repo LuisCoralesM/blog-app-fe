@@ -55,31 +55,29 @@ export function EditProfile({ props }) {
     setIsUpdated(true);
   }
 
-  return !isLogged ? (
+  return (
     <>
       <h2>Update profile bio</h2>
-      <p>Log in first!</p>
-    </>
-  ) : isUpdated ? (
-    <>
-      <h2>Update profile bio</h2>
-      <p>Profile updated</p>
-    </>
-  ) : (
-    <>
-      <h2>Update profile bio</h2>
-      <p>Set new bio for your profile!</p>
-      <ProfileItem profile={profile}></ProfileItem>
-      <form onSubmit={(e) => updateProfile(e)}>
-        <input
-          type="text"
-          placeholder="bio..."
-          name="bio"
-          id="bio-input"
-          onChange={(e) => handleChange(e)}
-        />
-        <button>Update</button>
-      </form>
+      {!isLogged ? (
+        <p>Log in first!</p>
+      ) : isUpdated ? (
+        <p>Profile updated</p>
+      ) : (
+        <>
+          <p>Set new bio for your profile!</p>
+          <ProfileItem profile={profile}></ProfileItem>
+          <form onSubmit={(e) => updateProfile(e)}>
+            <input
+              type="text"
+              placeholder="bio..."
+              name="bio"
+              id="bio-input"
+              onChange={(e) => handleChange(e)}
+            />
+            <button type="submit">Update</button>
+          </form>
+        </>
+      )}
     </>
   );
 }

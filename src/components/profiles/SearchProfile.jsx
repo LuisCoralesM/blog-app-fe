@@ -37,40 +37,39 @@ export function SearchProfile({ props }) {
     data.data === null ? setProfile(undefined) : setProfile(data.data);
   }
 
-  return !isLogged ? (
+  return (
     <>
       <h2>Searching profile by id</h2>
-      <p>Log in first!</p>
-    </>
-  ) : (
-    <>
-      <h2>Searching profile by id</h2>
-      {hasSearched ? (
-        <>
-          <form onSubmit={(e) => fetchUser(e)}>
-            <input
-              type="text"
-              placeholder="get by id"
-              name="id"
-              id="search-input"
-              onChange={(e) => handleChange(e)}
-            />
-            <button type="submit">Search</button>
-          </form>
-          <ProfileItem profile={profile}></ProfileItem>
-        </>
+      {!isLogged ? (
+        <p>Log in first!</p>
       ) : (
         <>
-          <form onSubmit={(e) => fetchUser(e)}>
-            <input
-              type="text"
-              placeholder="get by id"
-              name="id"
-              id="search-input"
-              onChange={(e) => handleChange(e)}
-            />
-            <button type="submit">Search</button>
-          </form>
+          {hasSearched ? (
+            <>
+              <form onSubmit={(e) => fetchUser(e)}>
+                <input
+                  type="text"
+                  placeholder="get by id"
+                  name="id"
+                  id="search-input"
+                  onChange={(e) => handleChange(e)}
+                />
+                <button type="submit">Search</button>
+              </form>
+              <ProfileItem profile={profile}></ProfileItem>
+            </>
+          ) : (
+            <form onSubmit={(e) => fetchUser(e)}>
+              <input
+                type="text"
+                placeholder="get by id"
+                name="id"
+                id="search-input"
+                onChange={(e) => handleChange(e)}
+              />
+              <button type="submit">Search</button>
+            </form>
+          )}
         </>
       )}
     </>

@@ -28,15 +28,10 @@ export function MyUser({ props }) {
     fetchUser();
   }, []);
 
-  return !isLogged ? (
+  return (
     <>
       <h2>My user</h2>
-      <p>Log in first!</p>
-    </>
-  ) : (
-    <>
-      <h2>My User</h2>
-      <UserItem user={user}></UserItem>
+      {!isLogged ? <p>Log in first!</p> : <UserItem user={user}></UserItem>}
     </>
   );
 }
