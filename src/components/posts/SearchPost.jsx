@@ -30,7 +30,6 @@ export function SearchPost({ props }) {
     );
     if (!response.ok) return console.log(response.status);
     const data = await response.json();
-    console.log(data.data);
     setPosts(data.data);
   }
 

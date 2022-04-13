@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { PostItem } from "./PostItem";
 
 export function CreatePost({ props }) {
-  const [post, setPost] = useState(undefined);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 

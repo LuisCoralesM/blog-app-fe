@@ -22,11 +22,11 @@ import { EditProfile } from "./components/profiles/EditProfile";
 
 import { Posts } from "./components/Posts";
 import { CreatePost } from "./components/posts/CreatePost";
-import { DeletePost } from "./components/posts/DeletePost";
-import { EditPost } from "./components/posts/EditPost";
+import { DeletePostMenu } from "./components/posts/DeletePostMenu";
 import { MyPosts } from "./components/posts/MyPosts";
 import { SearchPost } from "./components/posts/SearchPost";
 import { ListPosts } from "./components/posts/ListPosts";
+import { EditPostMenu } from "./components/posts/EditPostMenu";
 
 const KEY = "blogApp.users";
 
@@ -90,8 +90,9 @@ export function App() {
           <Route path="/dashboard/posts/myposts" element={<MyPosts />} />
           <Route path="/dashboard/posts/list" element={<ListPosts />} />
           <Route path="/dashboard/posts/search" element={<SearchPost />} />
-          <Route path="/dashboard/posts/edit" element={<EditPost />} />
-          <Route path="/dashboard/posts/delete" element={<DeletePost />} />
+          <Route path="/dashboard/posts/edit" element={<EditPostMenu />} />
+          <Route path="/dashboard/posts/myposts" element={<MyPosts />} />
+          <Route path="/dashboard/posts/delete" element={<DeletePostMenu />} />
 
           <Route path="*" element={<Error />} />
         </Routes>
