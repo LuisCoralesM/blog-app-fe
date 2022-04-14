@@ -4,15 +4,9 @@ import { DeletePost } from "./DeletePost";
 
 export function DeletePostMenu({ props }) {
   const [posts, setPosts] = useState([]);
-  const [post, setPost] = useState(undefined);
-  const [isLogged, setIsLogged] = useState(false);
-  const [hasClicked, setHasClicked] = useState(false);
+  const [id, setId] = useState(undefined);
 
-  useEffect(() => {
-    localStorage.getItem("token") === null
-      ? setIsLogged(false)
-      : setIsLogged(true);
-  }, []);
+  const [hasClicked, setHasClicked] = useState(false);
 
   useEffect(() => {
     async function fetchOwnPosts() {
@@ -31,41 +25,30 @@ export function DeletePostMenu({ props }) {
     fetchOwnPosts();
   }, []);
 
-  function getInfo(e) {
-    setPost(
-      posts.filter(
-        (post) =>
-          post.id ===
-          Number(e.target.parentElement.children[0].innerText.split(" ")[0])
-      )[0]
+  if (hasClicked) {
+    return (
+      <DeletePost
+        post={posts.find(({ id: idPost }) => idPost === id)}
+      />
     );
-    setHasClicked(true);
   }
-
   return (
-    <>
+    <div>
       <h2>Delete post</h2>
-      {!isLogged ? (
-        <p>Log in first!</p>
-      ) : !hasClicked ? (
-        <>
-          <p>Select a post</p>
-          {posts.map((post) => (
-            <div className="post-item">
-              <PostItem post={post}></PostItem>
-              <button
-                onClick={(e) => {
-                  getInfo(e);
-                }}
-              >
-                Delete
-              </button>
-            </div>
-          ))}
-        </>
-      ) : (
-        <DeletePost props={post}></DeletePost>
-      )}
-    </>
+      <p>Select a post</p>
+      {posts.map((post) => (
+        <div className="post-item">
+          <PostItem post={post}></PostItem>
+          <button
+            onClick={() => {
+              setId(post.id);
+              setHasClicked(true);
+            }}
+          >
+            Delete
+          </button>
+        </div>
+      ))}
+    </div>
   );
 }

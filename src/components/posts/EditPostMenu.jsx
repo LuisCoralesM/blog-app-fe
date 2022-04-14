@@ -5,14 +5,10 @@ import { EditPost } from "./EditPost";
 export function EditPostMenu({ props }) {
   const [posts, setPosts] = useState([]);
   const [post, setPost] = useState(undefined);
-  const [isLogged, setIsLogged] = useState(false);
+
   const [hasClicked, setHasClicked] = useState(false);
 
-  useEffect(() => {
-    localStorage.getItem("token") === null
-      ? setIsLogged(false)
-      : setIsLogged(true);
-  }, []);
+
 
   useEffect(() => {
     async function fetchOwnPosts() {
@@ -31,13 +27,12 @@ export function EditPostMenu({ props }) {
     fetchOwnPosts();
   }, []);
 
-  function getInfo(e) {
+  function getInfo(id) {
     setPost(
-      posts.filter(
+      posts.find(
         (post) =>
-          post.id ===
-          Number(e.target.parentElement.children[0].innerText.split(" ")[0])
-      )[0]
+          post.id ===   id
+      )
     );
     setHasClicked(true);
   }
@@ -55,7 +50,7 @@ export function EditPostMenu({ props }) {
               <PostItem post={post}></PostItem>
               <button
                 onClick={(e) => {
-                  getInfo(e);
+                  getInfo(post.id);
                 }}
               >
                 Edit

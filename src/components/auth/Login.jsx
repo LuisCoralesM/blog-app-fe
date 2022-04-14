@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from "react";
+import { setState } from "../../utils/hooks";
 
 export function Login({ props }) {
-  const [password, setPassword] = useState();
-  const [username, setUsername] = useState();
+  //empty
+  const [user, setUser] = useState({
+    username: undefined,
+    password: undefined,
+  });
+
   const [hasLogged, setHasLogged] = useState(false);
 
   useEffect(() => {
@@ -20,8 +25,8 @@ export function Login({ props }) {
         "Access-Control-Allow-Origin": "*",
       },
       body: JSON.stringify({
-        username: username,
-        password: password,
+        username: user.username,
+        password: user.password,
       }),
     });
     if (!response.ok) return console.log(response.status);
@@ -41,7 +46,7 @@ export function Login({ props }) {
             type="text"
             name="username"
             placeholder="johndoe123"
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={setState(setUser)}
             required
           />
           <br />
@@ -49,8 +54,8 @@ export function Login({ props }) {
           <br />
           <input
             type="password"
-            name="psw"
-            onChange={(e) => setPassword(e.target.value)}
+            name="password"
+            onChange={setState(setUser)}
             required
           />
           <br />

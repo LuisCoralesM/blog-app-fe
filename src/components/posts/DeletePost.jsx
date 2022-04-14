@@ -1,20 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { PostItem } from "./PostItem";
 
-export function DeletePost({ props }) {
-  const [post, setPost] = useState(undefined);
-  const [id, setId] = useState(0);
+export function DeletePost({ post }) {
   const [isDeleted, setDeleted] = useState(false);
-
-  useEffect(() => {
-    setPost(props);
-    setId(props.id);
-  }, [props]);
 
   async function deletePost(e) {
     e.preventDefault();
     const response = await fetch(
-      "http://localhost:5500/dashboard/posts/" + id,
+      "http://localhost:5500/dashboard/posts/" + post.id,
       {
         method: "DELETE",
         headers: {
@@ -30,7 +23,7 @@ export function DeletePost({ props }) {
 
   return (
     <>
-      {!isDeleted ? (
+      {!isDeleted ? ( 
         <>
           <p>Are you sure you want to delete the post?</p>
           <PostItem post={post}></PostItem>
