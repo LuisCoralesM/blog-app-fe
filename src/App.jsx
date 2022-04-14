@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link,
+  Navigate,
+} from "react-router-dom";
 
 import { Login } from "./components/auth/Login";
 import { Signup } from "./components/auth/Signup";
 import { Logout } from "./components/auth/Logout";
 
-import { Home } from "./components/Home";
-import { Error } from "./components/Error";
+const Home = React.lazy(() => import("./page/Home"));
+import { Error } from "./page/not-found";
 
 import { Users } from "./components/Users";
 import { ListUsers } from "./components/users/ListUser";
@@ -27,23 +33,40 @@ import { MyPosts } from "./components/posts/MyPosts";
 import { SearchPost } from "./components/posts/SearchPost";
 import { ListPosts } from "./components/posts/ListPosts";
 import { EditPostMenu } from "./components/posts/EditPostMenu";
-
-const KEY = "blogApp.users";
+import { URL_API_STATUS, URL_BACK } from "./config";
 
 export function App() {
+  const [loading, setLoadingApi] = useState(true);
   const [status, setStatus] = useState(false);
 
   // Get status of API
   useEffect(() => {
     async function fetchStatus() {
-      const response = await fetch("http://localhost:5500/status", {
-        method: "GET",
-      });
-      setStatus(response.ok);
+      try {
+        setLoadingApi(true);
+        const response = await fetch(URL_API_STATUS, {
+          method: "GET",
+        });
+        setStatus(response.ok);
+      } catch (error) {
+        console.log("ocurrio un error");
+      } finally {
+        setLoadingApi(false);
+      }
     }
     fetchStatus();
-  }, [status]);
+  }, []);
 
+  const [isLogged, setIsLogged] = useState(false);
+  useEffect(() => {
+    localStorage.getItem("token") === null
+      ? setIsLogged(false)
+      : setIsLogged(true);
+  }, []);
+
+  if (loading) {
+    return <div>Cargando..</div>;
+  }
   return status ? (
     <>
       <Router>
@@ -70,29 +93,45 @@ export function App() {
           <Route path="/auth/login" element={<Login />} />
           <Route path="/auth/logout" element={<Logout />} />
 
-          <Route path="/dashboard/users/" element={<Users />} />
-          <Route path="/dashboard/users/myuser" element={<MyUser />} />
-          <Route path="/dashboard/users/list" element={<ListUsers />} />
-          <Route path="/dashboard/users/search" element={<SearchUser />} />
-          <Route path="/dashboard/users/edit" element={<DeleteUser />} />
-
-          <Route path="/dashboard/profiles/" element={<Profiles />} />
-          <Route path="/dashboard/profiles/myprofile" element={<MyProfile />} />
-          <Route path="/dashboard/profiles/list" element={<ListProfile />} />
-          <Route
-            path="/dashboard/profiles/search"
-            element={<SearchProfile />}
-          />
-          <Route path="/dashboard/profiles/edit" element={<EditProfile />} />
-
-          <Route path="/dashboard/posts/" element={<Posts />} />
-          <Route path="/dashboard/posts/create" element={<CreatePost />} />
-          <Route path="/dashboard/posts/myposts" element={<MyPosts />} />
-          <Route path="/dashboard/posts/list" element={<ListPosts />} />
-          <Route path="/dashboard/posts/search" element={<SearchPost />} />
-          <Route path="/dashboard/posts/edit" element={<EditPostMenu />} />
-          <Route path="/dashboard/posts/myposts" element={<MyPosts />} />
-          <Route path="/dashboard/posts/delete" element={<DeletePostMenu />} />
+          {isLogged ? (
+            <>
+              <Route path="/dashboard/users/" element={<Users />} />
+              <Route path="/dashboard/users/myuser" element={<MyUser />} />
+              <Route path="/dashboard/users/list" element={<ListUsers />} />
+              <Route path="/dashboard/users/search" element={<SearchUser />} />
+              <Route path="/dashboard/users/edit" element={<DeleteUser />} />
+              <Route path="/dashboard/profiles/" element={<Profiles />} />
+              <Route
+                path="/dashboard/profiles/myprofile"
+                element={<MyProfile />}
+              />
+              <Route
+                path="/dashboard/profiles/list"
+                element={<ListProfile />}
+              />
+              <Route
+                path="/dashboard/profiles/search"
+                element={<SearchProfile />}
+              />
+              <Route
+                path="/dashboard/profiles/edit"
+                element={<EditProfile />}
+              />
+              <Route path="/dashboard/posts/" element={<Posts />} />
+              <Route path="/dashboard/posts/create" element={<CreatePost />} />
+              <Route path="/dashboard/posts/myposts" element={<MyPosts />} />
+              <Route path="/dashboard/posts/list" element={<ListPosts />} />
+              <Route path="/dashboard/posts/search" element={<SearchPost />} />
+              <Route path="/dashboard/posts/edit" element={<EditPostMenu />} />
+              <Route path="/dashboard/posts/myposts" element={<MyPosts />} />
+              <Route
+                path="/dashboard/posts/delete"
+                element={<DeletePostMenu />}
+              />
+            </>
+          ) : (
+            <Route path="*" element={<Navigate to="/auth/login" replace />} />
+          )}
 
           <Route path="*" element={<Error />} />
         </Routes>

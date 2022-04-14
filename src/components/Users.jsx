@@ -8,9 +8,7 @@ export function Users() {
       <h2>Users menu</h2>
       <div>
         <button
-          onClick={() => {
-            navigate("/dashboard/users/myuser");
-          }}
+          onClick={() =>  navigate("/dashboard/users/myuser")}
         >
           My user
         </button>

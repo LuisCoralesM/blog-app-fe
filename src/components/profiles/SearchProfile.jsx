@@ -3,7 +3,7 @@ import { ProfileItem } from "./ProfileItem";
 
 export function SearchProfile({ props }) {
   const [profile, setProfile] = useState(undefined);
-  const [id, setId] = useState(0);
+  const [id, setId] = useState();
   const [hasSearched, setSearch] = useState(false);
 
   const [isLogged, setIsLogged] = useState(false);
@@ -21,6 +21,7 @@ export function SearchProfile({ props }) {
   async function fetchUser(e) {
     e.preventDefault();
     setSearch(true);
+    if(!id) return
     const response = await fetch(
       "http://localhost:5500/dashboard/profiles/" + id,
       {
