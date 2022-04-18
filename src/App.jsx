@@ -28,8 +28,6 @@ import { SearchPost } from "./components/posts/SearchPost";
 import { ListPosts } from "./components/posts/ListPosts";
 import { EditPostMenu } from "./components/posts/EditPostMenu";
 
-const KEY = "blogApp.users";
-
 export function App() {
   const [status, setStatus] = useState(false);
 
@@ -42,7 +40,7 @@ export function App() {
       setStatus(response.ok);
     }
     fetchStatus();
-  }, [status]);
+  }, []);
 
   return status ? (
     <>

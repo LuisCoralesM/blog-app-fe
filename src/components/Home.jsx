@@ -5,7 +5,7 @@ export function Home() {
   let navigate = useNavigate();
   return (
     <>
-      <h2>Blog App - Luis Corales</h2>
+      <h2>Blog App</h2>
       <div>
         <button
           onClick={() => {
