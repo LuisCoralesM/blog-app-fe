@@ -1,28 +1,21 @@
 import React, { useState, useEffect } from "react";
 
-export function Logout({ props }) {
-  const [hasLogged, setHasLogged] = useState(false);
+export default function Logout(props) {
   const [hasLoggedOut, setHasLoggedOut] = useState(false);
-
-  useEffect(() => {
-    localStorage.getItem("token") === null
-      ? setHasLogged(false)
-      : setHasLogged(true);
-  }, []);
 
   function logout(e) {
     e.preventDefault();
+
     localStorage.clear();
-    setHasLogged(false);
+
+    setHasLoggedOut(true);
   }
 
   return (
     <>
       <h2>Logout</h2>
-      {!hasLogged ? (
-        "You are not logged in!"
-      ) : !hasLoggedOut ? (
-        <form onSubmit={(e) => logout(e)}>
+      {!hasLoggedOut ? (
+        <form onSubmit={logout}>
           <button type="submit">Logout</button>
         </form>
       ) : (

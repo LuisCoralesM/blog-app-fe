@@ -1,6 +1,6 @@
 import React from "react";
 
-export function ProfileItem({ profile }) {
+export default function ProfileItem(profile) {
   return profile === undefined ? (
     <li>User not found</li>
   ) : (

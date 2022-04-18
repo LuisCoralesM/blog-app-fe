@@ -1,36 +1,27 @@
 import React, { useState, useEffect } from "react";
-import { PostItem } from "./PostItem";
-import { DeletePost } from "./DeletePost";
+import PostItem from "./PostItem";
+import DeletePost from "./DeletePost";
+import { fetchApi } from "../../utils/response";
+import { URL_API } from "../../config";
 
-export function DeletePostMenu({ props }) {
+export default function DeletePostMenu(props) {
   const [posts, setPosts] = useState([]);
-  const [id, setId] = useState(undefined);
-
+  const [id, setId] = useState();
   const [hasClicked, setHasClicked] = useState(false);
 
   useEffect(() => {
     async function fetchOwnPosts() {
-      const response = await fetch("http://localhost:5500/dashboard/posts/", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          Authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
-        },
-      });
+      const response = await fetchApi(URL_API + "/dashboard/posts/");
+
       if (!response.ok) return console.log(response.status);
-      const data = await response.json();
-      setPosts(data.data);
+
+      setPosts(response.data);
     }
     fetchOwnPosts();
   }, []);
 
   if (hasClicked) {
-    return (
-      <DeletePost
-        post={posts.find(({ id: idPost }) => idPost === id)}
-      />
-    );
+    return <DeletePost post={posts.find(({ id: idPost }) => idPost === id)} />;
   }
   return (
     <div>

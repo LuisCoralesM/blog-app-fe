@@ -1,6 +1,6 @@
 import React from "react";
 
-export function UserItem({ user }) {
+export default function UserItem(user) {
   return user === undefined ? (
     <li>User not found</li>
   ) : (

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { URL_API } from "../../config";
+import { fetchApi } from "../../utils/response";
 
-export function EditPost({ props }) {
+export default function EditPost(props) {
   const [post, setPost] = useState(undefined);
   const [isUpdated, setIsUpdated] = useState(false);
   const [title, setTitle] = useState("");
@@ -14,22 +16,14 @@ export function EditPost({ props }) {
 
   async function updatePost(e) {
     e.preventDefault();
-    const response = await fetch(
-      "http://localhost:5500/dashboard/posts/" + id,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          Authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
-        },
-        body: JSON.stringify({
-          title: title,
-          content: content,
-        }),
-      }
-    );
+
+    const response = await fetchApi(URL_API + "/dashboard/posts/" + id, "PUT", {
+      title: title,
+      content: content,
+    });
+
     if (!response.ok) return console.log(response.status);
+
     setIsUpdated(true);
   }
 

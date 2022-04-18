@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { URL_API } from "../../config";
 import { setState } from "../../utils/hooks";
+import { fetchApi } from "../../utils/response";
 
-export function Login({ props }) {
+export default function Login(props) {
   //empty
   const [user, setUser] = useState({
     username: undefined,
@@ -18,20 +20,15 @@ export function Login({ props }) {
 
   async function loginUser(e) {
     e.preventDefault();
-    const response = await fetch("http://localhost:5500/auth/login/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-      },
-      body: JSON.stringify({
-        username: user.username,
-        password: user.password,
-      }),
+
+    const response = await fetchApi(URL_API + "/auth/login/", "POST", {
+      username: user.username,
+      password: user.password,
     });
+
     if (!response.ok) return console.log(response.status);
-    const data = await response.json();
-    localStorage.setItem("token", JSON.stringify(data.token));
+
+    localStorage.setItem("token", JSON.stringify(response.data.token));
     setHasLogged(true);
   }
 

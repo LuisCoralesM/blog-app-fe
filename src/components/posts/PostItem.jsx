@@ -1,6 +1,6 @@
 import React from "react";
 
-export function PostItem({ post }) {
+export default function PostItem(post) {
   return post === undefined ? (
     <li>Post not found</li>
   ) : (

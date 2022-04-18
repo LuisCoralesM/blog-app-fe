@@ -7,57 +7,89 @@ import {
   Navigate,
 } from "react-router-dom";
 
-import { Login } from "./components/auth/Login";
-import { Signup } from "./components/auth/Signup";
-import { Logout } from "./components/auth/Logout";
+import Login from "./components/auth/Login";
+import Signup from "./components/auth/Signup";
+import Logout from "./components/auth/Logout";
+import { fetchApi } from "./utils/response";
 
-const Home = React.lazy(() => import("./page/Home"));
-import { Error } from "./page/not-found";
+import { URL_API_STATUS, URL_API } from "./config";
 
-import { Users } from "./components/Users";
-import { ListUsers } from "./components/users/ListUser";
-import { DeleteUser } from "./components/users/DeleteUser";
-import { SearchUser } from "./components/users/SearchUser";
-import { MyUser } from "./components/users/MyUser";
+import Home from "./views/Home";
+import Users from "./views/Users";
+import Profiles from "./views/Profiles";
+import Error from "./views/Error";
 
-import { ListProfile } from "./components/profiles/ListProfile";
-import { Profiles } from "./components/Profiles";
-import { MyProfile } from "./components/profiles/MyProfile";
-import { SearchProfile } from "./components/profiles/SearchProfile";
-import { EditProfile } from "./components/profiles/EditProfile";
+import MyUser from "./components/users/MyUser";
+import DeleteUser from "./components/users/DeleteUser";
+import ListUsers from "./components/users/ListUser";
+import SearchUser from "./components/users/SearchUser";
 
-import { Posts } from "./components/Posts";
-import { CreatePost } from "./components/posts/CreatePost";
-import { DeletePostMenu } from "./components/posts/DeletePostMenu";
-import { MyPosts } from "./components/posts/MyPosts";
-import { SearchPost } from "./components/posts/SearchPost";
-import { ListPosts } from "./components/posts/ListPosts";
-import { EditPostMenu } from "./components/posts/EditPostMenu";
-import { URL_API_STATUS, URL_BACK } from "./config";
+import Posts from "./views/Posts";
+import ListPosts from "./components/posts/ListPosts";
+import MyPosts from "./components/posts/MyPosts";
+import DeletePostMenu from "./components/posts/DeletePostMenu";
+import EditPostMenu from "./components/posts/EditPostMenu";
+import CreatePost from "./components/posts/CreatePost";
+import SearchPost from "./components/posts/SearchPost";
+
+import MyProfile from "./components/profiles/MyProfile";
+import ListProfile from "./components/profiles/ListProfile";
+import SearchProfile from "./components/profiles/SearchProfile";
+import EditProfile from "./components/profiles/EditProfile";
+
+// const Error = React.lazy(() => import("./views/Error"));
+
+// const Users = React.lazy(() => import("./views/Users"));
+// const ListUsers = React.lazy(() => import("./components/users/ListUser"));
+// const DeleteUser = React.lazy(() => import("./components/users/DeleteUser"));
+// const SearchUser = React.lazy(() => import("./components/users/SearchUser"));
+// const MyUser = React.lazy(() => import("./components/users/MyUser"));
+
+// const Profiles = React.lazy(() => import("./views/Profiles"));
+// const ListProfile = React.lazy(() =>
+//   import("./components/profiles/ListProfile")
+// );
+// const MyProfile = React.lazy(() => import("./components/profiles/MyProfile"));
+// const SearchProfile = React.lazy(() =>
+//   import("./components/profiles/SearchProfile")
+// );
+// const EditProfile = React.lazy(() =>
+//   import("./components/profiles/EditProfile")
+// );
+
+// const Posts = React.lazy(() => import("./views/Posts"));
+// const CreatePost = React.lazy(() => import("./components/posts/CreatePost"));
+// const DeletePostMenu = React.lazy(() =>
+//   import("./components/posts/DeletePostMenu")
+// );
+// const MyPosts = React.lazy(() => import("./components/posts/MyPosts"));
+// const SearchPost = React.lazy(() => import("./components/posts/SearchPost"));
+// const ListPosts = React.lazy(() => import("./components/posts/ListPosts"));
+// const EditPostMenu = React.lazy(() =>
+//   import("./components/posts/EditPostMenu")
+// );
 
 export function App() {
-  const [loading, setLoadingApi] = useState(true);
+  const [loading, setLoading] = useState(true);
   const [status, setStatus] = useState(false);
+  const [isLogged, setIsLogged] = useState(false);
 
   // Get status of API
   useEffect(() => {
     async function fetchStatus() {
       try {
-        setLoadingApi(true);
-        const response = await fetch(URL_API_STATUS, {
-          method: "GET",
-        });
+        setLoading(true);
+        const response = await fetchApi(URL_API_STATUS);
         setStatus(response.ok);
       } catch (error) {
-        console.log("ocurrio un error");
+        console.log(error);
       } finally {
-        setLoadingApi(false);
+        setLoading(false);
       }
     }
     fetchStatus();
   }, []);
 
-  const [isLogged, setIsLogged] = useState(false);
   useEffect(() => {
     localStorage.getItem("token") === null
       ? setIsLogged(false)
@@ -65,7 +97,7 @@ export function App() {
   }, []);
 
   if (loading) {
-    return <div>Cargando..</div>;
+    return <p>Loading..</p>;
   }
   return status ? (
     <>
@@ -91,10 +123,11 @@ export function App() {
           <Route path="/" element={<Home />} />
           <Route path="/auth/signup" element={<Signup />} />
           <Route path="/auth/login" element={<Login />} />
-          <Route path="/auth/logout" element={<Logout />} />
 
           {isLogged ? (
             <>
+              <Route path="/auth/logout" element={<Logout />} />
+
               <Route path="/dashboard/users/" element={<Users />} />
               <Route path="/dashboard/users/myuser" element={<MyUser />} />
               <Route path="/dashboard/users/list" element={<ListUsers />} />
@@ -138,6 +171,6 @@ export function App() {
       </Router>
     </>
   ) : (
-    <div>API down</div>
+    <p>API down</p>
   );
 }

@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from "react";
+import { URL_API } from "../../config";
+import { setState } from "../../utils/hooks";
+import { fetchApi } from "../../utils/response";
 
-export function Signup({ props }) {
-  const [firstName, setFirstName] = useState();
-  const [lastName, setLastName] = useState();
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-  const [username, setUsername] = useState();
+export default function Signup(props) {
+  const [user, setUser] = useState({
+    firstName: undefined,
+    lastName: undefined,
+    email: undefined,
+    password: undefined,
+    username: undefined,
+  });
+
   const [hasRegistered, setHasRegistered] = useState(false);
 
   useEffect(() => {
@@ -15,46 +21,48 @@ export function Signup({ props }) {
   }, []);
 
   async function signupUser(e) {
-    e.preventDefault();
-    const response = await fetch("http://localhost:5500/auth/signup/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-      },
-      body: JSON.stringify({
-        first_name: firstName,
-        last_name: lastName,
-        username: username,
-        email: email,
-        password: password,
-      }),
-    });
-    if (!response.ok) return console.log(response.status);
-    setHasRegistered(true);
+    try {
+      e.preventDefault();
+
+      const response = await fetchApi(URL_API + "/auth/signup/", "POST", {
+        first_name: user.firstName,
+        last_name: user.lastName,
+        username: user.username,
+        email: user.email,
+        password: user.password,
+      });
+
+      console.log(response);
+
+      if (!response.ok) return console.log(response.status);
+
+      setHasRegistered(true);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
     <>
       <h2>Register</h2>
       {!hasRegistered ? (
-        <form onSubmit={(e) => signupUser(e)}>
+        <form onSubmit={signupUser}>
           <label>First name:</label>
           <br />
           <input
             type="text"
-            name="firstname"
+            name="firstName"
             placeholder="John"
-            onChange={(e) => setFirstName(e.target.value)}
+            onChange={setState(setUser)}
           />
           <br />
           <label>Last name:</label>
           <br />
           <input
             type="text"
-            name="lastname"
+            name="lastName"
             placeholder="Doe..."
-            onChange={(e) => setLastName(e.target.value)}
+            onChange={setState(setUser)}
           />
           <br />
           <label>Username:</label>
@@ -63,7 +71,7 @@ export function Signup({ props }) {
             type="text"
             name="username"
             placeholder="johndoe123"
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={setState(setUser)}
             required
           />
           <br />
@@ -73,7 +81,7 @@ export function Signup({ props }) {
             type="text"
             name="email"
             placeholder="john@email.com"
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={setState(setUser)}
             required
           />
           <br />
@@ -81,8 +89,8 @@ export function Signup({ props }) {
           <br />
           <input
             type="password"
-            name="psw"
-            onChange={(e) => setPassword(e.target.value)}
+            name="password"
+            onChange={setState(setUser)}
             required
             minlength="8"
             maxlength="12"

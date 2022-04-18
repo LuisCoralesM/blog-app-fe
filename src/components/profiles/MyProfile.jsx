@@ -1,33 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { ProfileItem } from "./ProfileItem";
+import { URL_API } from "../../config";
+import { fetchApi } from "../../utils/response";
+import ProfileItem from "./ProfileItem";
 
-export function MyProfile({ props }) {
+export default function MyProfile(props) {
   const [profile, setProfile] = useState(undefined);
-  const [isLogged, setIsLogged] = useState(false);
-
-  useEffect(() => {
-    localStorage.getItem("token") === null
-      ? setIsLogged(false)
-      : setIsLogged(true);
-  }, []);
 
   useEffect(() => {
     async function fetchOwnProfile() {
-      const response = await fetch(
-        "http://localhost:5500/dashboard/profiles/",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            Authorization:
-              "Bearer " + JSON.parse(localStorage.getItem("token")),
-          },
-        }
-      );
+      const response = await fetchApi(URL_API + "/dashboard/profiles/");
+
       if (!response.ok) return console.log(response.status);
-      const data = await response.json();
-      data.data === null ? setProfile(undefined) : setProfile(data.data);
+
+      response.data === null
+        ? setProfile(undefined)
+        : setProfile(response.data);
     }
     fetchOwnProfile();
   }, []);
@@ -35,11 +22,7 @@ export function MyProfile({ props }) {
   return (
     <>
       <h2>My profile</h2>
-      {!isLogged ? (
-        <p>Log in first!</p>
-      ) : (
-        <ProfileItem profile={profile}></ProfileItem>
-      )}
+      <ProfileItem profile={profile}></ProfileItem>
     </>
   );
 }
