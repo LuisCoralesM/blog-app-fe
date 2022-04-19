@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { URL_API } from "../../config";
-import { setState } from "../../utils/hooks";
 import { fetchApi } from "../../utils/response";
 import ProfileItem from "./ProfileItem";
 

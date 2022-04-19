@@ -12,7 +12,7 @@ import Signup from "./components/auth/Signup";
 import Logout from "./components/auth/Logout";
 import { fetchApi } from "./utils/response";
 
-import { URL_API_STATUS, URL_API } from "./config";
+import { URL_API_STATUS } from "./config";
 
 import Home from "./views/Home";
 import Users from "./views/Users";
