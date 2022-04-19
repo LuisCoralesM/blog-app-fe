@@ -21,10 +21,16 @@ export default function DeletePostMenu(props) {
   }, []);
 
   if (hasClicked) {
-    return <DeletePost post={posts.find(({ id: idPost }) => idPost === id)} />;
+    return (
+      <>
+        <h2>Delete post</h2>
+        <DeletePost post={posts.find((post) => post.id === id)} />
+      </>
+    );
   }
+
   return (
-    <div>
+    <>
       <h2>Delete post</h2>
       <p>Select a post</p>
       {posts.map((post) => (
@@ -40,6 +46,6 @@ export default function DeletePostMenu(props) {
           </button>
         </div>
       ))}
-    </div>
+    </>
   );
 }

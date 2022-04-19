@@ -4,8 +4,10 @@ import { setState } from "../../utils/hooks";
 import { fetchApi } from "../../utils/response";
 
 export default function CreatePost(props) {
-  const [title, setTitle] = useState();
-  const [content, setContent] = useState();
+  const [newPost, setNewPost] = useState({
+    title: undefined,
+    content: undefined,
+  });
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   async function createPost(e) {
@@ -14,8 +16,8 @@ export default function CreatePost(props) {
     // if (!title || !content) return;
 
     const response = await fetchApi(URL_API + "/dashboard/posts/", "POST", {
-      title: title,
-      content: content,
+      title: newPost.title,
+      content: newPost.content,
     });
 
     if (!response.ok) return console.log(response.data.status);
@@ -36,17 +38,19 @@ export default function CreatePost(props) {
             type="text"
             name="title"
             placeholder="Title..."
-            onChange={setTitle(setTitle)}
+            onChange={setState(setNewPost)}
             required
           />
           <br />
           <label>Content:</label>
           <br />
-          <input
+          <textarea
+            rows="5"
+            cols="60"
             type="text"
             name="content"
             placeholder="Content..."
-            onChange={setState(setContent)}
+            onChange={setState(setNewPost)}
             required
           />
           <br />

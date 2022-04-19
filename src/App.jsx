@@ -78,12 +78,13 @@ export function App() {
   useEffect(() => {
     async function fetchStatus() {
       try {
-        // setIsLoading(false);
+        setIsLoading(true);
         const response = await fetchApi(URL_API_STATUS);
-        // setStatus(response.ok);
-        // setIsLoading(false);
+        setStatus(response.ok);
       } catch (error) {
         console.log(error);
+      } finally {
+        setIsLoading(false);
       }
     }
     fetchStatus();
