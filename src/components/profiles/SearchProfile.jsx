@@ -5,7 +5,7 @@ import { fetchApi } from "../../utils/response";
 import ProfileItem from "./ProfileItem";
 
 export default function SearchProfile(props) {
-  const [profile, setProfile] = useState(undefined);
+  const [profile, setProfile] = useState();
   const [id, setId] = useState();
   const [hasSearched, setSearch] = useState(false);
 
@@ -17,9 +17,11 @@ export default function SearchProfile(props) {
 
     const response = await fetchApi(URL_API + "/dashboard/profiles/" + id);
 
-    if (!response.ok) return console.log(response.status);
+    if (!response.ok) return console.log(response.data.status);
 
-    response.data === null ? setProfile(undefined) : setProfile(response.data);
+    response.data.data === null
+      ? setProfile(undefined)
+      : setProfile(response.data.data);
   }
 
   return (
@@ -33,7 +35,7 @@ export default function SearchProfile(props) {
               placeholder="get by id"
               name="id"
               id="search-input"
-              onChange={setState(setId)}
+              onChange={(e) => setId(e.target.value)}
             />
             <button type="submit">Search</button>
           </form>
@@ -46,7 +48,7 @@ export default function SearchProfile(props) {
             placeholder="get by id"
             name="id"
             id="search-input"
-            onChange={setState(setId)}
+            onChange={(e) => setId(e.target.value)}
           />
           <button type="submit">Search</button>
         </form>

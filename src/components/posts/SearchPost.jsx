@@ -15,9 +15,9 @@ export default function SearchPost(props) {
     const response = await fetchApi(
       URL_API + "/dashboard/posts/user/" + username
     );
-    if (!response.ok) return console.log(response.status);
+    if (!response.ok) return console.log(response.data.status);
 
-    setPosts(response.data);
+    setPosts(response.data.data);
   }
 
   return (

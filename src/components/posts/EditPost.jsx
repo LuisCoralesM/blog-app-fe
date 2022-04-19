@@ -22,7 +22,7 @@ export default function EditPost(props) {
       content: content,
     });
 
-    if (!response.ok) return console.log(response.status);
+    if (!response.ok) return console.log(response.data.status);
 
     setIsUpdated(true);
   }

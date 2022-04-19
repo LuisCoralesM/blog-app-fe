@@ -1,13 +1,11 @@
 import React from "react";
 
-export default function ProfileItem(profile) {
+export default function ProfileItem({ profile }) {
   return profile === undefined ? (
     <li>User not found</li>
   ) : (
     <li>
       {profile.id +
-        " - " +
-        (profile.deleted_at !== null ? "deleted" : "active") +
         " - " +
         profile.user.username +
         " - " +

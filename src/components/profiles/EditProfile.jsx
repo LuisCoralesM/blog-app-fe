@@ -6,30 +6,33 @@ import ProfileItem from "./ProfileItem";
 
 export default function EditProfile(props) {
   const [profile, setProfile] = useState();
-  const [bio, setBio] = useState("");
+  const [bio, setBio] = useState();
   const [isUpdated, setIsUpdated] = useState(false);
 
   useEffect(() => {
     async function fetchOwnProfile() {
       const response = await fetchApi(URL_API + "/dashboard/profiles/");
 
-      if (!response.ok) return console.log(response.status);
+      if (!response.ok) return console.log(response.data.status);
 
       response.data === null
         ? setProfile(undefined)
-        : setProfile(response.data);
+        : setProfile(response.data.data);
     }
     fetchOwnProfile();
   }, []);
 
   async function updateProfile(e) {
     e.preventDefault();
+
+    if (!bio) return;
+
     const response = await fetchApi(
       "http://localhost:5500/dashboard/profiles/",
       "PUT",
       { bio: bio }
     );
-    if (!response.ok) return console.log(response.status);
+    if (!response.ok) return console.log(response.data.status);
 
     setIsUpdated(true);
   }
@@ -49,7 +52,7 @@ export default function EditProfile(props) {
               placeholder="bio..."
               name="bio"
               id="bio-input"
-              onChange={setState(setBio)}
+              onChange={(e) => setBio(e.target.value)}
             />
             <button type="submit">Update</button>
           </form>

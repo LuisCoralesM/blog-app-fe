@@ -14,7 +14,7 @@ export default function DeletePost(post) {
       "DELETE"
     );
 
-    if (!response.ok) return console.log(response.status);
+    if (!response.ok) return console.log(response.data.status);
 
     setDeleted(true);
   }

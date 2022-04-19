@@ -10,9 +10,9 @@ export default function ListPosts(props) {
     async function fetchPosts() {
       const response = await fetchApi(URL_API + "/dashboard/posts/all");
 
-      if (!response.ok) return console.log(response.status);
+      if (!response.ok) return console.log(response.data.status);
 
-      setPosts(response.data);
+      setPosts(response.data.data);
     }
     fetchPosts();
   }, []);

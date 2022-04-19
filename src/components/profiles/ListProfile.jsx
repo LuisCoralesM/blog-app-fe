@@ -10,9 +10,9 @@ export default function ListProfile(props) {
     async function fetchUser() {
       const response = await fetchApi(URL_API + "/dashboard/profiles/all");
 
-      if (!response.ok) return console.log(response.status);
+      if (!response.ok) return console.log(response.data.status);
 
-      setProfiles(response.data);
+      setProfiles(response.data.data);
     }
     fetchUser();
   }, []);

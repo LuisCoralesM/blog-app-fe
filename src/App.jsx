@@ -70,21 +70,20 @@ import EditProfile from "./components/profiles/EditProfile";
 // );
 
 export function App() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [status, setStatus] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [status, setStatus] = useState(true);
   const [isLogged, setIsLogged] = useState(false);
 
   // Get status of API
   useEffect(() => {
     async function fetchStatus() {
       try {
-        setIsLoading(true);
+        // setIsLoading(false);
         const response = await fetchApi(URL_API_STATUS);
-        setStatus(response.ok);
+        // setStatus(response.ok);
+        // setIsLoading(false);
       } catch (error) {
         console.log(error);
-      } finally {
-        setIsLoading(false);
       }
     }
     fetchStatus();
