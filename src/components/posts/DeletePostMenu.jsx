@@ -1,71 +1,45 @@
 import React, { useState, useEffect } from "react";
-import { PostItem } from "./PostItem";
-import { DeletePost } from "./DeletePost";
+import PostItem from "./PostItem";
+import DeletePost from "./DeletePost";
+import { fetchApi } from "../../utils/response";
+import { URL_API } from "../../config";
 
-export function DeletePostMenu({ props }) {
+export default function DeletePostMenu(props) {
   const [posts, setPosts] = useState([]);
-  const [post, setPost] = useState(undefined);
-  const [isLogged, setIsLogged] = useState(false);
+  const [id, setId] = useState();
   const [hasClicked, setHasClicked] = useState(false);
 
   useEffect(() => {
-    localStorage.getItem("token") === null
-      ? setIsLogged(false)
-      : setIsLogged(true);
-  }, []);
-
-  useEffect(() => {
     async function fetchOwnPosts() {
-      const response = await fetch("http://localhost:5500/dashboard/posts/", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          Authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
-        },
-      });
-      if (!response.ok) return console.log(response.status);
-      const data = await response.json();
-      setPosts(data.data);
+      const response = await fetchApi(URL_API + "/dashboard/posts/");
+
+      if (!response.ok) return console.log(response.data.status);
+
+      setPosts(response.data.data);
     }
     fetchOwnPosts();
   }, []);
 
-  function getInfo(e) {
-    setPost(
-      posts.filter(
-        (post) =>
-          post.id ===
-          Number(e.target.parentElement.children[0].innerText.split(" ")[0])
-      )[0]
-    );
-    setHasClicked(true);
+  if (hasClicked) {
+    return <DeletePost post={posts.find(({ id: idPost }) => idPost === id)} />;
   }
-
   return (
-    <>
+    <div>
       <h2>Delete post</h2>
-      {!isLogged ? (
-        <p>Log in first!</p>
-      ) : !hasClicked ? (
-        <>
-          <p>Select a post</p>
-          {posts.map((post) => (
-            <div className="post-item">
-              <PostItem post={post}></PostItem>
-              <button
-                onClick={(e) => {
-                  getInfo(e);
-                }}
-              >
-                Delete
-              </button>
-            </div>
-          ))}
-        </>
-      ) : (
-        <DeletePost props={post}></DeletePost>
-      )}
-    </>
+      <p>Select a post</p>
+      {posts.map((post) => (
+        <div className="post-item">
+          <PostItem post={post}></PostItem>
+          <button
+            onClick={() => {
+              setId(post.id);
+              setHasClicked(true);
+            }}
+          >
+            Delete
+          </button>
+        </div>
+      ))}
+    </div>
   );
 }

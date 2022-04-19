@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from "react";
+import { URL_API } from "../../config";
+import { setState } from "../../utils/hooks";
+import { fetchApi } from "../../utils/response";
 
-export function Login({ props }) {
-  const [password, setPassword] = useState();
-  const [username, setUsername] = useState();
+export default function Login(props) {
+  const [user, setUser] = useState({
+    username: undefined,
+    password: undefined,
+  });
   const [hasLogged, setHasLogged] = useState(false);
 
   useEffect(() => {
@@ -13,20 +18,16 @@ export function Login({ props }) {
 
   async function loginUser(e) {
     e.preventDefault();
-    const response = await fetch("http://localhost:5500/auth/login/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-      },
-      body: JSON.stringify({
-        username: username,
-        password: password,
-      }),
+
+    const response = await fetchApi(URL_API + "/auth/login/", "POST", {
+      username: user.username,
+      password: user.password,
     });
-    if (!response.ok) return console.log(response.status);
-    const data = await response.json();
-    localStorage.setItem("token", JSON.stringify(data.token));
+
+    if (!response.ok) return console.log(response.data.status);
+
+    localStorage.setItem("token", JSON.stringify(response.data.token));
+
     setHasLogged(true);
   }
 
@@ -34,14 +35,14 @@ export function Login({ props }) {
     <>
       <h2>Login</h2>
       {!hasLogged ? (
-        <form onSubmit={(e) => loginUser(e)}>
+        <form onSubmit={loginUser}>
           <label>Username:</label>
           <br />
           <input
             type="text"
             name="username"
             placeholder="johndoe123"
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={setState(setUser)}
             required
           />
           <br />
@@ -49,8 +50,8 @@ export function Login({ props }) {
           <br />
           <input
             type="password"
-            name="psw"
-            onChange={(e) => setPassword(e.target.value)}
+            name="password"
+            onChange={setState(setUser)}
             required
           />
           <br />
