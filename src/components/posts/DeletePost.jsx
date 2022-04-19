@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { URL_API } from "../../config";
 import { fetchApi } from "../../utils/response";
 import PostItem from "./PostItem";
