@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { URL_API } from "../../config";
-import { setState } from "../../utils/hooks";
 import { fetchApi } from "../../utils/response";
 import UserItem from "./UserItem";
 
@@ -14,10 +13,11 @@ export default function SearchUser(props) {
     setSearch(true);
 
     const response = await fetchApi(URL_API + "/dashboard/users/" + id);
+    if (!response.ok) return console.log(response.data.status);
 
-    if (!response.ok) return console.log(response.status);
-
-    response.data === null ? setUser(undefined) : setUser(response.data);
+    response.data.data === null
+      ? setUser(undefined)
+      : setUser(response.data.data);
   }
 
   return (
@@ -31,7 +31,9 @@ export default function SearchUser(props) {
               placeholder="get by id"
               name="id"
               id="search-input"
-              onChange={setState(setId)}
+              onChange={(e) =>
+                setId(Number(e.target.value) ? e.target.value : 0)
+              }
             />
             <button type="submit">Search</button>
           </form>
@@ -44,7 +46,7 @@ export default function SearchUser(props) {
             placeholder="get by id"
             name="id"
             id="search-input"
-            onChange={setState(setId)}
+            onChange={(e) => setId(Number(e.target.value) ? e.target.value : 0)}
           />
           <button type="submit">Search</button>
         </form>

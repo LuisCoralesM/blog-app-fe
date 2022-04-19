@@ -13,11 +13,12 @@ export default function Signup(props) {
   });
 
   const [hasRegistered, setHasRegistered] = useState(false);
+  const [isLogged, setIsLogged] = useState(false);
 
   useEffect(() => {
     localStorage.getItem("token") === null
-      ? setHasRegistered(false)
-      : setHasRegistered(true);
+      ? setIsLogged(false)
+      : setIsLogged(true);
   }, []);
 
   async function signupUser(e) {
@@ -32,9 +33,9 @@ export default function Signup(props) {
         password: user.password,
       });
 
-      console.log(response);
+      console.log(response.data);
 
-      if (!response.ok) return console.log(response.status);
+      if (!response.ok) return console.log(response.data.status);
 
       setHasRegistered(true);
     } catch (error) {
@@ -45,7 +46,9 @@ export default function Signup(props) {
   return (
     <>
       <h2>Register</h2>
-      {!hasRegistered ? (
+      {isLogged ? (
+        <p>You are logged!</p>
+      ) : !hasRegistered ? (
         <form onSubmit={signupUser}>
           <label>First name:</label>
           <br />
@@ -78,7 +81,7 @@ export default function Signup(props) {
           <label>Email:</label>
           <br />
           <input
-            type="text"
+            type="email"
             name="email"
             placeholder="john@email.com"
             onChange={setState(setUser)}
@@ -92,8 +95,8 @@ export default function Signup(props) {
             name="password"
             onChange={setState(setUser)}
             required
-            minlength="8"
-            maxlength="12"
+            minLength="8"
+            maxLength="12"
           />
           <br />
           <button type="submit">Register</button>

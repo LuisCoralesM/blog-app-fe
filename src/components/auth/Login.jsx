@@ -4,12 +4,10 @@ import { setState } from "../../utils/hooks";
 import { fetchApi } from "../../utils/response";
 
 export default function Login(props) {
-  //empty
   const [user, setUser] = useState({
     username: undefined,
     password: undefined,
   });
-
   const [hasLogged, setHasLogged] = useState(false);
 
   useEffect(() => {
@@ -26,9 +24,10 @@ export default function Login(props) {
       password: user.password,
     });
 
-    if (!response.ok) return console.log(response.status);
+    if (!response.ok) return console.log(response.data.status);
 
     localStorage.setItem("token", JSON.stringify(response.data.token));
+
     setHasLogged(true);
   }
 
@@ -36,7 +35,7 @@ export default function Login(props) {
     <>
       <h2>Login</h2>
       {!hasLogged ? (
-        <form onSubmit={(e) => loginUser(e)}>
+        <form onSubmit={loginUser}>
           <label>Username:</label>
           <br />
           <input

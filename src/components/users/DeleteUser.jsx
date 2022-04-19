@@ -3,8 +3,8 @@ import { URL_API } from "../../config";
 import { fetchApi } from "../../utils/response";
 import UserItem from "./UserItem";
 
-export default function DeleteUser({ props }) {
-  const [user, setUser] = useState(undefined);
+export default function DeleteUser(props) {
+  const [user, setUser] = useState();
   const [isDeleted, setDeleted] = useState(false);
 
   useEffect(() => {
@@ -14,9 +14,11 @@ export default function DeleteUser({ props }) {
 
       if (!response.ok) return console.log(response.status);
 
-      response.data === null ? setUser(undefined) : setUser(response.data);
+      response.data.data === null
+        ? setUser(undefined)
+        : setUser(response.data.data);
 
-      if (response.data.deleted_at !== null) setDeleted(true);
+      if (response.data.deleted_at != null) setDeleted(true);
     }
     fetchOwnUser();
   }, []);
@@ -25,7 +27,7 @@ export default function DeleteUser({ props }) {
     e.preventDefault();
     const response = await fetchApi(URL_API + "/dashboard/users/", "DELETE");
 
-    if (!response.ok) return console.log(response.status);
+    if (!response.ok) return console.log(response.data.status);
 
     setDeleted(true);
     localStorage.clear();

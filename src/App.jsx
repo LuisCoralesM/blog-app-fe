@@ -70,7 +70,7 @@ import EditProfile from "./components/profiles/EditProfile";
 // );
 
 export function App() {
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [status, setStatus] = useState(false);
   const [isLogged, setIsLogged] = useState(false);
 
@@ -78,98 +78,89 @@ export function App() {
   useEffect(() => {
     async function fetchStatus() {
       try {
-        setLoading(true);
+        setIsLoading(true);
         const response = await fetchApi(URL_API_STATUS);
         setStatus(response.ok);
       } catch (error) {
         console.log(error);
       } finally {
-        setLoading(false);
+        setIsLoading(false);
       }
     }
     fetchStatus();
   }, []);
 
   useEffect(() => {
-    localStorage.getItem("token") === null
+    localStorage.getItem("token") == null
       ? setIsLogged(false)
       : setIsLogged(true);
   }, []);
 
-  if (loading) {
-    return <p>Loading..</p>;
-  }
+  if (isLoading) return <p>Loading..</p>;
+
   return status ? (
-    <>
-      <Router>
-        <nav
-          style={{
-            display: "flex",
-            justifyContent: "space-around",
-            width: "auto",
-          }}
-        >
-          <Link to="/">Home</Link>
-          <Link to="/auth/signup">Signup</Link>
-          <Link to="/auth/login">Login</Link>
-          <Link to="/auth/logout">Logout</Link>
+    <Router>
+      <nav
+        style={{
+          display: "flex",
+          justifyContent: "space-around",
+          width: "auto",
+        }}
+      >
+        <Link to="/">Home</Link>
+        <Link to="/auth/signup">Signup</Link>
+        <Link to="/auth/login">Login</Link>
+        <Link to="/auth/logout">Logout</Link>
 
-          <Link to="/dashboard/users">Users</Link>
-          <Link to="/dashboard/profiles">Profiles</Link>
-          <Link to="/dashboard/posts">Posts</Link>
-        </nav>
+        <Link to="/dashboard/users">Users</Link>
+        <Link to="/dashboard/profiles">Profiles</Link>
+        <Link to="/dashboard/posts">Posts</Link>
+      </nav>
 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/auth/signup" element={<Signup />} />
-          <Route path="/auth/login" element={<Login />} />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/auth/signup" element={<Signup />} />
+        <Route path="/auth/login" element={<Login />} />
 
-          {isLogged ? (
-            <>
-              <Route path="/auth/logout" element={<Logout />} />
+        {isLogged ? (
+          <>
+            <Route path="/auth/logout" element={<Logout />} />
 
-              <Route path="/dashboard/users/" element={<Users />} />
-              <Route path="/dashboard/users/myuser" element={<MyUser />} />
-              <Route path="/dashboard/users/list" element={<ListUsers />} />
-              <Route path="/dashboard/users/search" element={<SearchUser />} />
-              <Route path="/dashboard/users/edit" element={<DeleteUser />} />
-              <Route path="/dashboard/profiles/" element={<Profiles />} />
-              <Route
-                path="/dashboard/profiles/myprofile"
-                element={<MyProfile />}
-              />
-              <Route
-                path="/dashboard/profiles/list"
-                element={<ListProfile />}
-              />
-              <Route
-                path="/dashboard/profiles/search"
-                element={<SearchProfile />}
-              />
-              <Route
-                path="/dashboard/profiles/edit"
-                element={<EditProfile />}
-              />
-              <Route path="/dashboard/posts/" element={<Posts />} />
-              <Route path="/dashboard/posts/create" element={<CreatePost />} />
-              <Route path="/dashboard/posts/myposts" element={<MyPosts />} />
-              <Route path="/dashboard/posts/list" element={<ListPosts />} />
-              <Route path="/dashboard/posts/search" element={<SearchPost />} />
-              <Route path="/dashboard/posts/edit" element={<EditPostMenu />} />
-              <Route path="/dashboard/posts/myposts" element={<MyPosts />} />
-              <Route
-                path="/dashboard/posts/delete"
-                element={<DeletePostMenu />}
-              />
-            </>
-          ) : (
-            <Route path="*" element={<Navigate to="/auth/login" replace />} />
-          )}
+            <Route path="/dashboard/users/" element={<Users />} />
+            <Route path="/dashboard/users/myuser" element={<MyUser />} />
+            <Route path="/dashboard/users/list" element={<ListUsers />} />
+            <Route path="/dashboard/users/search" element={<SearchUser />} />
+            <Route path="/dashboard/users/edit" element={<DeleteUser />} />
+            <Route path="/dashboard/profiles/" element={<Profiles />} />
+            <Route
+              path="/dashboard/profiles/myprofile"
+              element={<MyProfile />}
+            />
+            <Route path="/dashboard/profiles/list" element={<ListProfile />} />
+            <Route
+              path="/dashboard/profiles/search"
+              element={<SearchProfile />}
+            />
+            <Route path="/dashboard/profiles/edit" element={<EditProfile />} />
+            <Route path="/dashboard/posts/" element={<Posts />} />
+            <Route path="/dashboard/posts/create" element={<CreatePost />} />
+            <Route path="/dashboard/posts/myposts" element={<MyPosts />} />
+            <Route path="/dashboard/posts/list" element={<ListPosts />} />
+            <Route path="/dashboard/posts/search" element={<SearchPost />} />
+            <Route path="/dashboard/posts/edit" element={<EditPostMenu />} />
+            <Route path="/dashboard/posts/myposts" element={<MyPosts />} />
+            <Route
+              path="/dashboard/posts/delete"
+              element={<DeletePostMenu />}
+            />
+          </>
+        ) : (
+          <Route path="*" element={<Navigate to="/auth/login" replace />} />
+        )}
 
-          <Route path="*" element={<Error />} />
-        </Routes>
-      </Router>
-    </>
+        <Route path="*" element={<Error />} />
+      </Routes>
+    </Router>
   ) : (
     <p>API down</p>
   );
