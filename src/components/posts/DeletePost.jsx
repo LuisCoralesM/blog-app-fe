@@ -3,14 +3,14 @@ import { URL_API } from "../../config";
 import { fetchApi } from "../../utils/response";
 import PostItem from "./PostItem";
 
-export default function DeletePost(post) {
+export default function DeletePost({ post }) {
   const [isDeleted, setDeleted] = useState(false);
 
   async function deletePost(e) {
     e.preventDefault();
 
     const response = await fetchApi(
-      URL_API + "/dashboard/posts" + post.id,
+      URL_API + "/dashboard/posts/" + post.id,
       "DELETE"
     );
 
@@ -25,7 +25,7 @@ export default function DeletePost(post) {
         <>
           <p>Are you sure you want to delete the post?</p>
           <PostItem post={post}></PostItem>
-          <form onSubmit={(e) => deletePost(e)}>
+          <form onSubmit={deletePost}>
             <button type="submit">Confirm delete</button>
           </form>
         </>

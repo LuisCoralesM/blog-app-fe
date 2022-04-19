@@ -1,26 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { URL_API } from "../../config";
+import { setState } from "../../utils/hooks";
 import { fetchApi } from "../../utils/response";
 
-export default function EditPost(props) {
-  const [post, setPost] = useState(undefined);
+export default function EditPost({ post }) {
   const [isUpdated, setIsUpdated] = useState(false);
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [id, setId] = useState(0);
-
-  useEffect(() => {
-    setPost(props);
-    setId(props.id);
-  }, [props]);
+  const [editedPost, setEditedPost] = useState({
+    title: undefined,
+    content: undefined,
+  });
 
   async function updatePost(e) {
     e.preventDefault();
 
-    const response = await fetchApi(URL_API + "/dashboard/posts/" + id, "PUT", {
-      title: title,
-      content: content,
-    });
+    const response = await fetchApi(
+      URL_API + "/dashboard/posts/" + post.id,
+      "PUT",
+      {
+        title: editedPost.title,
+        content: editedPost.content,
+      }
+    );
 
     if (!response.ok) return console.log(response.data.status);
 
@@ -31,7 +31,7 @@ export default function EditPost(props) {
     <>
       <p>Update title and content</p>
       {!isUpdated ? (
-        <form onSubmit={(e) => updatePost(e)}>
+        <form onSubmit={updatePost}>
           <label>Title:</label>
           <br />
           <input
@@ -39,7 +39,7 @@ export default function EditPost(props) {
             name="title"
             id="title-input"
             defaultValue={post ? post.title : ""}
-            onChange={(e) => setTitle(e.target.value)}
+            onChange={setState(setEditedPost)}
           />
           <br />
           <label>Content:</label>
@@ -51,7 +51,7 @@ export default function EditPost(props) {
             defaultValue={post ? post.content : ""}
             name="content"
             id="content-input"
-            onChange={(e) => setContent(e.target.value)}
+            onChange={setState(setEditedPost)}
           />
           <br />
           <button type="submit">Update</button>

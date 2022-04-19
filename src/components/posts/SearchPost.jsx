@@ -12,6 +12,8 @@ export default function SearchPost(props) {
     e.preventDefault();
     setSearch(true);
 
+    if (!username) return;
+
     const response = await fetchApi(
       URL_API + "/dashboard/posts/user/" + username
     );
