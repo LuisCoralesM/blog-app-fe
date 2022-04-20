@@ -37,6 +37,7 @@ import ListProfile from "./components/profiles/ListProfile";
 import SearchProfile from "./components/profiles/SearchProfile";
 import EditProfile from "./components/profiles/EditProfile";
 import { checkLogin } from "./utils/checkLogin";
+import Nav from "./components/nav/Nav";
 
 // const Error = React.lazy(() => import("./views/Error"));
 
@@ -99,6 +100,7 @@ export function App() {
 
   return status ? (
     <Router>
+      <Nav />
       <nav
         style={{
           display: "flex",

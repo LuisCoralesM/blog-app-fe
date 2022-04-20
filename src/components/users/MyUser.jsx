@@ -12,7 +12,7 @@ export default function MyUser(props) {
 
       if (!response.ok) return console.log(response.status);
 
-      response.data === null ? setUser(undefined) : setUser(response.data.data);
+      setUser(response.data.data ?? undefined);
     }
     fetchUser();
   }, []);
