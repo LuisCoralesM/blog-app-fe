@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { URL_API } from "../../config";
+import { checkLogin } from "../../utils/checkLogin";
 import { setState } from "../../utils/hooks";
 import { fetchApi } from "../../utils/response";
 
-export default function Signup(props) {
+export default function Signup({ props }) {
   const [user, setUser] = useState({
     firstName: undefined,
     lastName: undefined,
@@ -16,10 +17,10 @@ export default function Signup(props) {
   const [isLogged, setIsLogged] = useState(false);
 
   useEffect(() => {
-    localStorage.getItem("token") === null
-      ? setIsLogged(false)
-      : setIsLogged(true);
-  }, []);
+    const logged = checkLogin();
+    setIsLogged(logged);
+    props.setIsLogged(logged);
+  }, [props]);
 
   async function signupUser(e) {
     try {

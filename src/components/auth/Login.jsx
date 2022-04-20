@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { URL_API } from "../../config";
+import { checkLogin } from "../../utils/checkLogin";
 import { setState } from "../../utils/hooks";
 import { fetchApi } from "../../utils/response";
 
-export default function Login(props) {
+export default function Login({ props }) {
   const [user, setUser] = useState({
     username: undefined,
     password: undefined,
@@ -11,9 +12,7 @@ export default function Login(props) {
   const [hasLogged, setHasLogged] = useState(false);
 
   useEffect(() => {
-    localStorage.getItem("token") === null
-      ? setHasLogged(false)
-      : setHasLogged(true);
+    setHasLogged(checkLogin());
   }, []);
 
   async function loginUser(e) {
@@ -25,10 +24,12 @@ export default function Login(props) {
     });
 
     if (!response.ok) return console.log(response.data.status);
+    console.log(response);
 
     localStorage.setItem("token", JSON.stringify(response.data.token));
 
     setHasLogged(true);
+    props.setIsLogged(true);
   }
 
   return (
