@@ -18,9 +18,7 @@ export default function SearchProfile(props) {
 
     if (!response.ok) return console.log(response.data.status);
 
-    response.data.data === null
-      ? setProfile(undefined)
-      : setProfile(response.data.data);
+    setProfile(response.data.data ?? undefined);
   }
 
   return (

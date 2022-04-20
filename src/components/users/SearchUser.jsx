@@ -15,9 +15,7 @@ export default function SearchUser(props) {
     const response = await fetchApi(URL_API + "/dashboard/users/" + id);
     if (!response.ok) return console.log(response.data.status);
 
-    response.data.data === null
-      ? setUser(undefined)
-      : setUser(response.data.data);
+    setUser(response.data.data ?? undefined);
   }
 
   return (

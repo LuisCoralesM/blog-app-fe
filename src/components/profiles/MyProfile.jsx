@@ -12,9 +12,7 @@ export default function MyProfile(props) {
 
       if (!response.ok) return console.log(response.data.status);
 
-      response.data === null
-        ? setProfile(undefined)
-        : setProfile(response.data.data);
+      setProfile(response.data.data ?? undefined);
     }
     fetchOwnProfile();
   }, []);

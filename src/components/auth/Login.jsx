@@ -24,7 +24,6 @@ export default function Login({ props }) {
     });
 
     if (!response.ok) return console.log(response.data.status);
-    console.log(response);
 
     localStorage.setItem("token", JSON.stringify(response.data.token));
 
