@@ -36,6 +36,7 @@ import MyProfile from "./components/profiles/MyProfile";
 import ListProfile from "./components/profiles/ListProfile";
 import SearchProfile from "./components/profiles/SearchProfile";
 import EditProfile from "./components/profiles/EditProfile";
+import { checkLogin } from "./utils/checkLogin";
 
 // const Error = React.lazy(() => import("./views/Error"));
 
@@ -91,9 +92,7 @@ export function App() {
   }, []);
 
   useEffect(() => {
-    localStorage.getItem("token") == null
-      ? setIsLogged(false)
-      : setIsLogged(true);
+    setIsLogged(checkLogin());
   }, []);
 
   if (isLoading) return <p>Loading..</p>;
@@ -119,12 +118,21 @@ export function App() {
 
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/auth/signup" element={<Signup />} />
-        <Route path="/auth/login" element={<Login />} />
+        <Route
+          path="/auth/signup"
+          element={<Signup props={{ isLogged, setIsLogged }} />}
+        />
+        <Route
+          path="/auth/login"
+          element={<Login props={{ isLogged, setIsLogged }} />}
+        />
 
         {isLogged ? (
           <>
-            <Route path="/auth/logout" element={<Logout />} />
+            <Route
+              path="/auth/logout"
+              element={<Logout props={{ isLogged, setIsLogged }} />}
+            />
 
             <Route path="/dashboard/users/" element={<Users />} />
             <Route path="/dashboard/users/myuser" element={<MyUser />} />
