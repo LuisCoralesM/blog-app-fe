@@ -5,7 +5,7 @@ export default function Users() {
   let navigate = useNavigate();
   return (
     <>
-      <h2>Users menu</h2>
+      <h1 className="text-3xl">User menu</h1>
       <div>
         <button onClick={() => navigate("/dashboard/users/myuser")}>
           My user

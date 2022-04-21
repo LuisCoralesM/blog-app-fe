@@ -5,7 +5,7 @@ function Home() {
   let navigate = useNavigate();
   return (
     <>
-      <h1 className="text-4xl">Blog App</h1>
+      <h1 className="text-3xl">Blog App</h1>
       <div>
         <button onClick={() => navigate("/dashboard/users")}>Users</button>
         <button onClick={() => navigate("/dashboard/profiles")}>

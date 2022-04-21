@@ -5,7 +5,7 @@ export default function Posts() {
   let navigate = useNavigate();
   return (
     <>
-      <h2>Posts menu</h2>
+      <h1 className="text-3xl">Post menu</h1>
       <div>
         <button onClick={() => navigate("/dashboard/posts/myposts")}>
           My posts

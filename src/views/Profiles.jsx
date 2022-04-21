@@ -5,7 +5,7 @@ export default function Profiles() {
   let navigate = useNavigate();
   return (
     <>
-      <h2>Profiles menu</h2>
+      <h1 className="text-3xl">Profile menu</h1>
       <div>
         <button onClick={() => navigate("/dashboard/profiles/myprofile")}>
           My profile
