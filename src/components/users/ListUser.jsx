@@ -22,7 +22,7 @@ export default function ListUsers(props) {
       <h2>List all users</h2>
       <ul>
         {users.map((user) => (
-          <UserItem user={user}></UserItem>
+          <UserItem key={user?.id} user={user}></UserItem>
         ))}
       </ul>
     </section>

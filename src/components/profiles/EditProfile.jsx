@@ -42,7 +42,7 @@ export default function EditProfile(props) {
       ) : (
         <>
           <p>Set new bio for your profile!</p>
-          <ProfileItem profile={profile}></ProfileItem>
+          <ProfileItem key={profile?.id} profile={profile}></ProfileItem>
           <form onSubmit={updateProfile}>
             <input
               type="text"

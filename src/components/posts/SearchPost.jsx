@@ -38,7 +38,7 @@ export default function SearchPost(props) {
             <button type="submit">Search</button>
           </form>
           {posts.map((post) => (
-            <PostItem post={post}></PostItem>
+            <PostItem key={post?.id} post={post}></PostItem>
           ))}
         </>
       ) : (

@@ -22,7 +22,7 @@ export default function ListPosts(props) {
       <h2>List all posts</h2>
       <ul>
         {posts.map((post) => (
-          <PostItem post={post}></PostItem>
+          <PostItem key={post?.id} post={post}></PostItem>
         ))}
       </ul>
     </>

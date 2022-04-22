@@ -24,7 +24,7 @@ export default function DeletePost({ post }) {
       {!isDeleted ? (
         <>
           <p>Are you sure you want to delete the post?</p>
-          <PostItem post={post}></PostItem>
+          <PostItem key={post?.id} post={post}></PostItem>
           <form onSubmit={deletePost}>
             <button type="submit">Confirm delete</button>
           </form>

@@ -35,7 +35,7 @@ export default function SearchUser(props) {
             />
             <button type="submit">Search</button>
           </form>
-          <UserItem user={user}></UserItem>
+          <UserItem key={user?.id} user={user}></UserItem>
         </>
       ) : (
         <form onSubmit={fetchUser}>

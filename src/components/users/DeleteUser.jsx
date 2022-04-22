@@ -41,7 +41,7 @@ export default function DeleteUser(props) {
       ) : (
         <>
           <p>Are you sure you want to delete your user?</p>
-          <UserItem user={user}></UserItem>
+          <UserItem key={user?.id} user={user}></UserItem>
           <form onSubmit={(e) => deleteUser(e)}>
             <button>Confirm delete</button>
           </form>

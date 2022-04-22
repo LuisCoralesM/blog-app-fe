@@ -20,7 +20,7 @@ export default function MyProfile(props) {
   return (
     <>
       <h2>My profile</h2>
-      <ProfileItem profile={profile}></ProfileItem>
+      <ProfileItem key={profile?.id} profile={profile}></ProfileItem>
     </>
   );
 }

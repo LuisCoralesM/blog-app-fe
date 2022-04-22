@@ -22,7 +22,7 @@ export default function ListProfile(props) {
       <h2>List all profiles</h2>
       <ul>
         {profiles.map((profile) => (
-          <ProfileItem profile={profile}></ProfileItem>
+          <ProfileItem key={profile?.id} profile={profile}></ProfileItem>
         ))}
       </ul>
     </>

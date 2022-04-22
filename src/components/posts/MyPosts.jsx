@@ -21,7 +21,7 @@ export default function MyPosts(props) {
     <>
       <h2>My posts</h2>
       {posts.map((post) => (
-        <PostItem post={post}></PostItem>
+        <PostItem key={post?.id} post={post}></PostItem>
       ))}
     </>
   );

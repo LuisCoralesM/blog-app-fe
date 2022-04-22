@@ -36,7 +36,7 @@ export default function SearchProfile(props) {
             />
             <button type="submit">Search</button>
           </form>
-          <ProfileItem profile={profile}></ProfileItem>
+          <ProfileItem key={profile?.id} profile={profile}></ProfileItem>
         </>
       ) : (
         <form onSubmit={fetchUser}>

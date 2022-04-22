@@ -35,7 +35,7 @@ export default function DeletePostMenu(props) {
       <p>Select a post</p>
       {posts.map((post) => (
         <div className="post-item">
-          <PostItem post={post}></PostItem>
+          <PostItem key={post?.id} post={post}></PostItem>
           <button
             onClick={() => {
               setId(post.id);
