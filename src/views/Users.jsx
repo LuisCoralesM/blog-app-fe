@@ -1,25 +1,18 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import MenuButtons from "../components/menu/MenuButtons";
+import Title from "../components/menu/Title";
 
-export default function Users() {
-  let navigate = useNavigate();
+export default function Users({ props }) {
+  const items = [
+    { link: "/dashboard/users/myuser", text: "My user" },
+    { link: "/dashboard/users/list", text: "List users" },
+    { link: "/dashboard/users/search", text: "Search user by id" },
+    { link: "/dashboard/users/edit", text: "Delete user" },
+  ];
   return (
-    <>
-      <h1 className="text-3xl">User menu</h1>
-      <div>
-        <button onClick={() => navigate("/dashboard/users/myuser")}>
-          My user
-        </button>
-        <button onClick={() => navigate("/dashboard/users/list")}>
-          List users
-        </button>
-        <button onClick={() => navigate("/dashboard/users/search")}>
-          Search user by id
-        </button>
-        <button onClick={() => navigate("/dashboard/users/edit")}>
-          Delete user
-        </button>
-      </div>
-    </>
+    <section>
+      <Title props={{ title: "Users" }} />
+      <MenuButtons props={{ items: items }}></MenuButtons>
+    </section>
   );
 }

@@ -18,9 +18,9 @@ export default function MyUser(props) {
   }, []);
 
   return (
-    <>
+    <section>
       <h2>My user</h2>
       <UserItem user={user}></UserItem>
-    </>
+    </section>
   );
 }

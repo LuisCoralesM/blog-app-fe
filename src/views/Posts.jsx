@@ -1,31 +1,20 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import MenuButtons from "../components/menu/MenuButtons";
+import Title from "../components/menu/Title";
 
 export default function Posts() {
-  let navigate = useNavigate();
+  const items = [
+    { link: "/dashboard/posts/myposts", text: "My posts" },
+    { link: "/dashboard/posts/create", text: "Create post" },
+    { link: "/dashboard/posts/list", text: "List posts" },
+    { link: "/dashboard/posts/search", text: "Search post by user" },
+    { link: "/dashboard/posts/edit", text: "Edit post" },
+    { link: "/dashboard/posts/delete", text: "Delete post" },
+  ];
   return (
-    <>
-      <h1 className="text-3xl">Post menu</h1>
-      <div>
-        <button onClick={() => navigate("/dashboard/posts/myposts")}>
-          My posts
-        </button>
-        <button onClick={() => navigate("/dashboard/posts/create")}>
-          Create post
-        </button>
-        <button onClick={() => navigate("/dashboard/posts/list")}>
-          List posts
-        </button>
-        <button onClick={() => navigate("/dashboard/posts/search")}>
-          Search post by user
-        </button>
-        <button onClick={() => navigate("/dashboard/posts/edit")}>
-          Edit post
-        </button>
-        <button onClick={() => navigate("/dashboard/posts/delete")}>
-          Delete post
-        </button>
-      </div>
-    </>
+    <section>
+      <Title props={{ title: "Posts" }} />
+      <MenuButtons props={{ items: items }}></MenuButtons>
+    </section>
   );
 }

@@ -19,7 +19,7 @@ export default function SearchUser(props) {
   }
 
   return (
-    <>
+    <section>
       <h2>Searching user by id</h2>
       {hasSearched ? (
         <>
@@ -49,6 +49,6 @@ export default function SearchUser(props) {
           <button type="submit">Search</button>
         </form>
       )}
-    </>
+    </section>
   );
 }

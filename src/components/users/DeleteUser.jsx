@@ -34,7 +34,7 @@ export default function DeleteUser(props) {
   }
 
   return (
-    <>
+    <section>
       <h2>Delete own user</h2>
       {isDeleted ? (
         <p>User deleted</p>
@@ -47,6 +47,6 @@ export default function DeleteUser(props) {
           </form>
         </>
       )}
-    </>
+    </section>
   );
 }

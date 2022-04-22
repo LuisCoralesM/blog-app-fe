@@ -18,13 +18,13 @@ export default function ListUsers(props) {
   }, []);
 
   return (
-    <>
+    <section>
       <h2>List all users</h2>
       <ul>
         {users.map((user) => (
           <UserItem user={user}></UserItem>
         ))}
       </ul>
-    </>
+    </section>
   );
 }

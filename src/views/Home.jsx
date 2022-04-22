@@ -1,20 +1,17 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import MenuButtons from "../components/menu/MenuButtons";
+import Title from "../components/menu/Title";
 
-function Home() {
-  let navigate = useNavigate();
+export default function Home() {
+  const items = [
+    { link: "/dashboard/users", text: "Users" },
+    { link: "/dashboard/profiles", text: "Profiles" },
+    { link: "/dashboard/posts", text: "Posts" },
+  ];
   return (
-    <>
-      <h1 className="text-3xl">Blog App</h1>
-      <div>
-        <button onClick={() => navigate("/dashboard/users")}>Users</button>
-        <button onClick={() => navigate("/dashboard/profiles")}>
-          Profiles
-        </button>
-        <button onClick={() => navigate("/dashboard/posts")}>Posts</button>
-      </div>
-    </>
+    <section>
+      <Title props={{ title: "My Blog" }} />
+      <MenuButtons props={{ items: items }}></MenuButtons>
+    </section>
   );
 }
-
-export default Home;

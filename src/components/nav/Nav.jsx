@@ -5,6 +5,8 @@ import { MenuIcon, XIcon } from "@heroicons/react/outline";
 
 import { Link, useLocation } from "react-router-dom";
 
+import settings from "../../assets/settings.png";
+
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
@@ -81,8 +83,8 @@ export default function Nav({ props }) {
                     <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                       <span className="sr-only">Open user menu</span>
                       <img
-                        className="h-8 w-8 rounded-full bg-white"
-                        src="https://www.weact.org/wp-content/uploads/2016/10/Blank-profile.png"
+                        className="h-8 w-8 rounded-full"
+                        src={settings}
                         alt=""
                       />
                     </Menu.Button>
