@@ -35,7 +35,7 @@ export default function EditPostMenu(props) {
       <Title props={{ title: "Edit post" }} />
       <p className="mb-3">Select a post</p>
       {posts.map((post) => (
-        <div className="post-item p-3 border-2 border-orange-600 rounded-lg flex gap-x-3">
+        <div className="post-item p-3 border-2 border-orange-600 rounded-lg flex gap-x-3 mb-1">
           <PostItem key={post?.id} post={post}></PostItem>
           <button
             onClick={() => {

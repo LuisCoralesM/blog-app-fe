@@ -22,7 +22,9 @@ export default function MyPosts(props) {
     <section>
       <Title props={{ title: "My posts" }} />
       {posts.map((post) => (
-        <PostItem key={post?.id} post={post}></PostItem>
+        <div className="post-item p-3 border-2 border-orange-600 rounded-lg flex gap-x-3 mb-1">
+          <PostItem key={post?.id} post={post}></PostItem>
+        </div>
       ))}
     </section>
   );
