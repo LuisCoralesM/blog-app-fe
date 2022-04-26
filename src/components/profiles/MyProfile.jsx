@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { URL_API } from "../../config";
 import { fetchApi } from "../../utils/response";
+import Title from "../menu/Title";
 import ProfileItem from "./ProfileItem";
 
 export default function MyProfile(props) {
@@ -18,9 +19,9 @@ export default function MyProfile(props) {
   }, []);
 
   return (
-    <>
-      <h2>My profile</h2>
+    <section>
+      <Title props={{ title: "My profile" }} />
       <ProfileItem key={profile?.id} profile={profile}></ProfileItem>
-    </>
+    </section>
   );
 }

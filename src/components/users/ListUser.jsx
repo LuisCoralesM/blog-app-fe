@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { URL_API } from "../../config";
 import { fetchApi } from "../../utils/response";
+import Title from "../menu/Title";
 import UserItem from "./UserItem";
 
 export default function ListUsers(props) {
@@ -19,7 +20,7 @@ export default function ListUsers(props) {
 
   return (
     <section>
-      <h2>List all users</h2>
+      <Title props={{ title: "List all users" }} />
       <ul>
         {users.map((user) => (
           <UserItem key={user?.id} user={user}></UserItem>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { URL_API } from "../../config";
 import { fetchApi } from "../../utils/response";
+import Title from "../menu/Title";
 import UserItem from "./UserItem";
 
 export default function DeleteUser(props) {
@@ -35,7 +36,7 @@ export default function DeleteUser(props) {
 
   return (
     <section>
-      <h2>Delete own user</h2>
+      <Title props={{ title: "Delete own user" }} />
       {isDeleted ? (
         <p>User deleted</p>
       ) : (

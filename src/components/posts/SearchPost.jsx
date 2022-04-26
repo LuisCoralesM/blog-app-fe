@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { URL_API } from "../../config";
 import { fetchApi } from "../../utils/response";
+import Title from "../menu/Title";
 import PostItem from "./PostItem";
 
 export default function SearchPost(props) {
@@ -23,8 +24,8 @@ export default function SearchPost(props) {
   }
 
   return (
-    <>
-      <h2>Searching posts by username</h2>
+    <section>
+      <Title props={{ title: "Searching posts by username" }} />
       {hasSearched ? (
         <>
           <form onSubmit={(e) => fetchPostsByUser(e)}>
@@ -53,6 +54,6 @@ export default function SearchPost(props) {
           <button type="submit">Search</button>
         </form>
       )}
-    </>
+    </section>
   );
 }

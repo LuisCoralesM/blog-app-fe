@@ -28,7 +28,7 @@ export default function EditPost({ post }) {
   }
 
   return (
-    <>
+    <section>
       <p>Update title and content</p>
       {!isUpdated ? (
         <form onSubmit={updatePost}>
@@ -59,6 +59,6 @@ export default function EditPost({ post }) {
       ) : (
         <p>Post updated!</p>
       )}
-    </>
+    </section>
   );
 }

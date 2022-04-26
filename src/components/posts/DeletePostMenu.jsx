@@ -3,6 +3,7 @@ import PostItem from "./PostItem";
 import DeletePost from "./DeletePost";
 import { fetchApi } from "../../utils/response";
 import { URL_API } from "../../config";
+import Title from "../menu/Title";
 
 export default function DeletePostMenu(props) {
   const [posts, setPosts] = useState([]);
@@ -30,11 +31,11 @@ export default function DeletePostMenu(props) {
   }
 
   return (
-    <>
-      <h2>Delete post</h2>
-      <p>Select a post</p>
+    <section>
+      <Title props={{ title: "Delete post" }} />
+      <p className="mb-3">Select a post</p>
       {posts.map((post) => (
-        <div className="post-item">
+        <div className="post-item p-3 border-2 border-orange-600 rounded-lg flex gap-x-3">
           <PostItem key={post?.id} post={post}></PostItem>
           <button
             onClick={() => {
@@ -46,6 +47,6 @@ export default function DeletePostMenu(props) {
           </button>
         </div>
       ))}
-    </>
+    </section>
   );
 }

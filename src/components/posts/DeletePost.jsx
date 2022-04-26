@@ -20,7 +20,7 @@ export default function DeletePost({ post }) {
   }
 
   return (
-    <>
+    <section>
       {!isDeleted ? (
         <>
           <p>Are you sure you want to delete the post?</p>
@@ -32,6 +32,6 @@ export default function DeletePost({ post }) {
       ) : (
         <p>Post deleted</p>
       )}
-    </>
+    </section>
   );
 }

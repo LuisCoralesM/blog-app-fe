@@ -3,6 +3,7 @@ import PostItem from "./PostItem";
 import EditPost from "./EditPost";
 import { URL_API } from "../../config";
 import { fetchApi } from "../../utils/response";
+import Title from "../menu/Title";
 
 export default function EditPostMenu(props) {
   const [posts, setPosts] = useState([]);
@@ -22,19 +23,19 @@ export default function EditPostMenu(props) {
 
   if (hasClicked) {
     return (
-      <>
-        <h2>Edit post</h2>
+      <section>
+        <Title props={{ title: "Edit post" }} />
         <EditPost post={posts.find((post) => post.id === id)} />
-      </>
+      </section>
     );
   }
 
   return (
-    <>
-      <h2>Edit post</h2>
-      <p>Select a post</p>
+    <section>
+      <Title props={{ title: "Edit post" }} />
+      <p className="mb-3">Select a post</p>
       {posts.map((post) => (
-        <div className="post-item">
+        <div className="post-item p-3 border-2 border-orange-600 rounded-lg flex gap-x-3">
           <PostItem key={post?.id} post={post}></PostItem>
           <button
             onClick={() => {
@@ -46,6 +47,6 @@ export default function EditPostMenu(props) {
           </button>
         </div>
       ))}
-    </>
+    </section>
   );
 }

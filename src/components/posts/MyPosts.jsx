@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { URL_API } from "../../config";
 import { fetchApi } from "../../utils/response";
+import Title from "../menu/Title";
 import PostItem from "./PostItem";
 
 export default function MyPosts(props) {
@@ -18,11 +19,11 @@ export default function MyPosts(props) {
   }, []);
 
   return (
-    <>
-      <h2>My posts</h2>
+    <section>
+      <Title props={{ title: "My posts" }} />
       {posts.map((post) => (
         <PostItem key={post?.id} post={post}></PostItem>
       ))}
-    </>
+    </section>
   );
 }

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { URL_API } from "../../config";
 import { fetchApi } from "../../utils/response";
+import Title from "../menu/Title";
 import UserItem from "./UserItem";
 
 export default function SearchUser(props) {
@@ -20,7 +21,7 @@ export default function SearchUser(props) {
 
   return (
     <section>
-      <h2>Searching user by id</h2>
+      <Title props={{ title: "Searching user by id" }} />
       {hasSearched ? (
         <>
           <form onSubmit={fetchUser}>

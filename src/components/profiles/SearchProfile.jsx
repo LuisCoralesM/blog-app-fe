@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { URL_API } from "../../config";
 import { fetchApi } from "../../utils/response";
+import Title from "../menu/Title";
 import ProfileItem from "./ProfileItem";
 
 export default function SearchProfile(props) {
@@ -22,8 +23,8 @@ export default function SearchProfile(props) {
   }
 
   return (
-    <>
-      <h2>Searching profile by id</h2>
+    <section>
+      <Title props={{ title: "Searching profile by id" }} />
       {hasSearched ? (
         <>
           <form onSubmit={fetchUser}>
@@ -50,6 +51,6 @@ export default function SearchProfile(props) {
           <button type="submit">Search</button>
         </form>
       )}
-    </>
+    </section>
   );
 }

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { URL_API } from "../../config";
 import { setState } from "../../utils/hooks";
 import { fetchApi } from "../../utils/response";
+import Title from "../menu/Title";
 
 export default function CreatePost(props) {
   const [newPost, setNewPost] = useState({
@@ -26,8 +27,8 @@ export default function CreatePost(props) {
   }
 
   return (
-    <>
-      <h2>Create new post</h2>
+    <section>
+      <Title props={{ title: "Create new post" }} />
       {isSubmitted ? (
         <p>Post submitted</p>
       ) : (
@@ -57,6 +58,6 @@ export default function CreatePost(props) {
           <button type="submit">Submit</button>
         </form>
       )}
-    </>
+    </section>
   );
 }

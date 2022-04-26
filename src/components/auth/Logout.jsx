@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import { URL_API } from "../../config";
-import { checkLogin } from "../../utils/checkLogin";
 import { fetchApi } from "../../utils/response";
+import Title from "../menu/Title";
 
 export default function Logout({ props }) {
   const [hasLoggedOut, setHasLoggedOut] = useState(false);
@@ -25,8 +25,8 @@ export default function Logout({ props }) {
   }
 
   return (
-    <>
-      <h2>Logout</h2>
+    <section>
+      <Title props={{ title: "Logout" }} />
       {!isLogged ? (
         <Navigate to="/auth/login" replace />
       ) : !hasLoggedOut ? (
@@ -36,6 +36,6 @@ export default function Logout({ props }) {
       ) : (
         "You have logged out"
       )}
-    </>
+    </section>
   );
 }

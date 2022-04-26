@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { URL_API } from "../../config";
 import { fetchApi } from "../../utils/response";
+import Title from "../menu/Title";
 import ProfileItem from "./ProfileItem";
 
 export default function EditProfile(props) {
@@ -35,8 +36,8 @@ export default function EditProfile(props) {
   }
 
   return (
-    <>
-      <h2>Update profile bio</h2>
+    <section>
+      <Title props={{ title: "Update profile bio" }} />
       {isUpdated ? (
         <p>Profile updated</p>
       ) : (
@@ -55,6 +56,6 @@ export default function EditProfile(props) {
           </form>
         </>
       )}
-    </>
+    </section>
   );
 }
