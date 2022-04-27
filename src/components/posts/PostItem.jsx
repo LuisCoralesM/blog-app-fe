@@ -1,13 +1,11 @@
 import React from "react";
 
 export default function PostItem({ post }) {
-  return post === undefined ? (
-    <li>Post not found</li>
+  return post === undefined || post.length === 0 ? (
+    <li className="list-none">Post not found</li>
   ) : (
-    <li>
-      {post.id +
-        " - " +
-        post.profile.user.username +
+    <li className="list-none">
+      {post.profile.user.username +
         " - " +
         post.title +
         " - " +

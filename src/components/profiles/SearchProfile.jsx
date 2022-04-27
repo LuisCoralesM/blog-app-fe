@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { URL_API } from "../../config";
 import { fetchApi } from "../../utils/response";
+import Title from "../menu/Title";
 import ProfileItem from "./ProfileItem";
 
 export default function SearchProfile(props) {
@@ -8,7 +9,7 @@ export default function SearchProfile(props) {
   const [id, setId] = useState();
   const [hasSearched, setSearch] = useState(false);
 
-  async function fetchUser(e) {
+  async function fetchProfile(e) {
     e.preventDefault();
     setSearch(true);
 
@@ -22,34 +23,32 @@ export default function SearchProfile(props) {
   }
 
   return (
-    <>
-      <h2>Searching profile by id</h2>
+    <section>
+      <Title props={{ title: "Searching profile by id" }} />
+      <form
+        className="w-full max-w-sm mb-3 flex align-middle"
+        onSubmit={fetchProfile}
+      >
+        <input
+          className="bg-gray-700 border-transparent rounded"
+          type="text"
+          placeholder="get by id"
+          name="id"
+          id="search-input"
+          onChange={(e) => setId(e.target.value)}
+        />
+        <button
+          className="flex-shrink-0 ml-1 border-transparent border-2 bg-gray-800 text-orange-500 hover:text-orange-700 text-sm p-2 rounded"
+          type="submit"
+        >
+          Search
+        </button>
+      </form>
       {hasSearched ? (
-        <>
-          <form onSubmit={fetchUser}>
-            <input
-              type="text"
-              placeholder="get by id"
-              name="id"
-              id="search-input"
-              onChange={(e) => setId(e.target.value)}
-            />
-            <button type="submit">Search</button>
-          </form>
-          <ProfileItem profile={profile}></ProfileItem>
-        </>
+        <ProfileItem key={profile?.id} profile={profile}></ProfileItem>
       ) : (
-        <form onSubmit={fetchUser}>
-          <input
-            type="text"
-            placeholder="get by id"
-            name="id"
-            id="search-input"
-            onChange={(e) => setId(e.target.value)}
-          />
-          <button type="submit">Search</button>
-        </form>
+        ""
       )}
-    </>
+    </section>
   );
 }

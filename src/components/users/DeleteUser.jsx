@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { URL_API } from "../../config";
 import { fetchApi } from "../../utils/response";
+import Title from "../menu/Title";
 import UserItem from "./UserItem";
 
 export default function DeleteUser(props) {
@@ -34,19 +35,21 @@ export default function DeleteUser(props) {
   }
 
   return (
-    <>
-      <h2>Delete own user</h2>
+    <section>
+      <Title props={{ title: "Delete own user" }} />
       {isDeleted ? (
         <p>User deleted</p>
       ) : (
         <>
           <p>Are you sure you want to delete your user?</p>
-          <UserItem user={user}></UserItem>
+          <UserItem key={user?.id} user={user}></UserItem>
           <form onSubmit={(e) => deleteUser(e)}>
-            <button>Confirm delete</button>
+            <button className="mt-3 flex-shrink-0 border-transparent border-2 bg-gray-800 text-orange-500 hover:text-orange-700 text-sm p-2 rounded">
+              Confirm delete
+            </button>
           </form>
         </>
       )}
-    </>
+    </section>
   );
 }

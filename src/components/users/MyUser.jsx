@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { URL_API } from "../../config";
 import { fetchApi } from "../../utils/response";
+import Title from "../menu/Title";
 import UserItem from "./UserItem";
 
 export default function MyUser(props) {
@@ -18,9 +19,9 @@ export default function MyUser(props) {
   }, []);
 
   return (
-    <>
-      <h2>My user</h2>
-      <UserItem user={user}></UserItem>
-    </>
+    <section>
+      <Title props={{ title: "My user" }} />
+      <UserItem key={user?.id} user={user}></UserItem>
+    </section>
   );
 }

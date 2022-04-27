@@ -1,25 +1,18 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import MenuButtons from "../components/menu/MenuButtons";
+import Title from "../components/menu/Title";
 
-export default function Profiles() {
-  let navigate = useNavigate();
+export default function Users() {
+  const items = [
+    { link: "/dashboard/profiles/myprofile", text: "My profile" },
+    { link: "/dashboard/profiles/list", text: "List profiles" },
+    { link: "/dashboard/profiles/search", text: "Search profile by id" },
+    { link: "/dashboard/profiles/edit", text: "Edit profile" },
+  ];
   return (
-    <>
-      <h2>Profiles menu</h2>
-      <div>
-        <button onClick={() => navigate("/dashboard/profiles/myprofile")}>
-          My profile
-        </button>
-        <button onClick={() => navigate("/dashboard/profiles/list")}>
-          List profiles
-        </button>
-        <button onClick={() => navigate("/dashboard/profiles/search")}>
-          Search profile by id
-        </button>
-        <button onClick={() => navigate("/dashboard/profiles/edit")}>
-          Edit profile
-        </button>
-      </div>
-    </>
+    <section>
+      <Title props={{ title: "Profiles" }} />
+      <MenuButtons props={{ items: items }}></MenuButtons>
+    </section>
   );
 }

@@ -29,12 +29,10 @@ export default function EditPost({ post }) {
 
   return (
     <>
-      <p>Update title and content</p>
       {!isUpdated ? (
-        <form onSubmit={updatePost}>
-          <label>Title:</label>
-          <br />
+        <form className="w-full" onSubmit={updatePost}>
           <input
+            className="w-full bg-gray-700 border-transparent rounded"
             type="text"
             name="title"
             id="title-input"
@@ -42,11 +40,10 @@ export default function EditPost({ post }) {
             onChange={setState(setEditedPost)}
           />
           <br />
-          <label>Content:</label>
           <br />
           <textarea
+            className="w-full bg-gray-700 border-transparent rounded"
             rows="5"
-            cols="60"
             type="text"
             defaultValue={post ? post.content : ""}
             name="content"
@@ -54,10 +51,15 @@ export default function EditPost({ post }) {
             onChange={setState(setEditedPost)}
           />
           <br />
-          <button type="submit">Update</button>
+          <button
+            className="my-3 flex-shrink-0 border-transparent border-2 bg-gray-800 text-orange-500 hover:text-orange-700 text-sm p-2 rounded"
+            type="submit"
+          >
+            Update
+          </button>
         </form>
       ) : (
-        <p>Post updated!</p>
+        <p className="mb-3">Post updated!</p>
       )}
     </>
   );

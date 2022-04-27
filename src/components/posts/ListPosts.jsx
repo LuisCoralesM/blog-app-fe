@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { URL_API } from "../../config";
 import { fetchApi } from "../../utils/response";
+import Title from "../menu/Title";
 import PostItem from "./PostItem";
 
 export default function ListPosts(props) {
@@ -18,13 +19,15 @@ export default function ListPosts(props) {
   }, []);
 
   return (
-    <>
-      <h2>List all posts</h2>
+    <section>
+      <Title props={{ title: "List all posts" }} />
       <ul>
         {posts.map((post) => (
-          <PostItem post={post}></PostItem>
+          <div className="post-item p-3 border-2 border-orange-600 rounded-lg flex gap-x-3 mb-1">
+            <PostItem key={post?.id} post={post}></PostItem>
+          </div>
         ))}
       </ul>
-    </>
+    </section>
   );
 }

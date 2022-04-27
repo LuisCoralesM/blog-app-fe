@@ -3,7 +3,6 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Link,
   Navigate,
 } from "react-router-dom";
 
@@ -27,10 +26,9 @@ import SearchUser from "./components/users/SearchUser";
 import Posts from "./views/Posts";
 import ListPosts from "./components/posts/ListPosts";
 import MyPosts from "./components/posts/MyPosts";
-import DeletePostMenu from "./components/posts/DeletePostMenu";
-import EditPostMenu from "./components/posts/EditPostMenu";
 import CreatePost from "./components/posts/CreatePost";
 import SearchPost from "./components/posts/SearchPost";
+import ActionMenu from "./components/posts/ActionMenu";
 
 import MyProfile from "./components/profiles/MyProfile";
 import ListProfile from "./components/profiles/ListProfile";
@@ -39,39 +37,7 @@ import EditProfile from "./components/profiles/EditProfile";
 import { checkLogin } from "./utils/checkLogin";
 import Nav from "./components/nav/Nav";
 
-// const Error = React.lazy(() => import("./views/Error"));
-
-// const Users = React.lazy(() => import("./views/Users"));
-// const ListUsers = React.lazy(() => import("./components/users/ListUser"));
-// const DeleteUser = React.lazy(() => import("./components/users/DeleteUser"));
-// const SearchUser = React.lazy(() => import("./components/users/SearchUser"));
-// const MyUser = React.lazy(() => import("./components/users/MyUser"));
-
-// const Profiles = React.lazy(() => import("./views/Profiles"));
-// const ListProfile = React.lazy(() =>
-//   import("./components/profiles/ListProfile")
-// );
-// const MyProfile = React.lazy(() => import("./components/profiles/MyProfile"));
-// const SearchProfile = React.lazy(() =>
-//   import("./components/profiles/SearchProfile")
-// );
-// const EditProfile = React.lazy(() =>
-//   import("./components/profiles/EditProfile")
-// );
-
-// const Posts = React.lazy(() => import("./views/Posts"));
-// const CreatePost = React.lazy(() => import("./components/posts/CreatePost"));
-// const DeletePostMenu = React.lazy(() =>
-//   import("./components/posts/DeletePostMenu")
-// );
-// const MyPosts = React.lazy(() => import("./components/posts/MyPosts"));
-// const SearchPost = React.lazy(() => import("./components/posts/SearchPost"));
-// const ListPosts = React.lazy(() => import("./components/posts/ListPosts"));
-// const EditPostMenu = React.lazy(() =>
-//   import("./components/posts/EditPostMenu")
-// );
-
-export function App() {
+export default function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [status, setStatus] = useState(true);
   const [isLogged, setIsLogged] = useState(false);
@@ -101,22 +67,6 @@ export function App() {
   return status ? (
     <Router>
       <Nav />
-      <nav
-        style={{
-          display: "flex",
-          justifyContent: "space-around",
-          width: "auto",
-        }}
-      >
-        <Link to="/">Home</Link>
-        <Link to="/auth/signup">Signup</Link>
-        <Link to="/auth/login">Login</Link>
-        <Link to="/auth/logout">Logout</Link>
-
-        <Link to="/dashboard/users">Users</Link>
-        <Link to="/dashboard/profiles">Profiles</Link>
-        <Link to="/dashboard/posts">Posts</Link>
-      </nav>
 
       <Routes>
         <Route path="/" element={<Home />} />
@@ -157,12 +107,8 @@ export function App() {
             <Route path="/dashboard/posts/myposts" element={<MyPosts />} />
             <Route path="/dashboard/posts/list" element={<ListPosts />} />
             <Route path="/dashboard/posts/search" element={<SearchPost />} />
-            <Route path="/dashboard/posts/edit" element={<EditPostMenu />} />
             <Route path="/dashboard/posts/myposts" element={<MyPosts />} />
-            <Route
-              path="/dashboard/posts/delete"
-              element={<DeletePostMenu />}
-            />
+            <Route path="/dashboard/posts/actions" element={<ActionMenu />} />
           </>
         ) : (
           <Route path="*" element={<Navigate to="/auth/login" replace />} />

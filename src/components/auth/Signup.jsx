@@ -3,6 +3,7 @@ import { URL_API } from "../../config";
 import { checkLogin } from "../../utils/checkLogin";
 import { setState } from "../../utils/hooks";
 import { fetchApi } from "../../utils/response";
+import Title from "../menu/Title";
 
 export default function Signup({ props }) {
   const [user, setUser] = useState({
@@ -45,8 +46,8 @@ export default function Signup({ props }) {
   }
 
   return (
-    <>
-      <h2>Register</h2>
+    <section>
+      <Title props={{ title: "Register" }} />
       {isLogged ? (
         <p>You are logged!</p>
       ) : !hasRegistered ? (
@@ -105,6 +106,6 @@ export default function Signup({ props }) {
       ) : (
         "Has registered!"
       )}
-    </>
+    </section>
   );
 }

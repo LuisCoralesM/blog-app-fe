@@ -3,5 +3,11 @@
 @tailwind utilities;
 
 body {
-    font-family: monospace;
+  font-family: monospace;
+  color: white;
+  background-color: #202124;
+}
+
+section {
+  padding: 10px;
 }

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { URL_API } from "../../config";
 import { fetchApi } from "../../utils/response";
+import Title from "../menu/Title";
 import UserItem from "./UserItem";
 
 export default function ListUsers(props) {
@@ -18,13 +19,13 @@ export default function ListUsers(props) {
   }, []);
 
   return (
-    <>
-      <h2>List all users</h2>
+    <section>
+      <Title props={{ title: "List all users" }} />
       <ul>
         {users.map((user) => (
-          <UserItem user={user}></UserItem>
+          <UserItem key={user?.id} user={user}></UserItem>
         ))}
       </ul>
-    </>
+    </section>
   );
 }

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { URL_API } from "../../config";
 import { setState } from "../../utils/hooks";
 import { fetchApi } from "../../utils/response";
+import Title from "../menu/Title";
 
 export default function CreatePost(props) {
   const [newPost, setNewPost] = useState({
@@ -12,8 +13,6 @@ export default function CreatePost(props) {
 
   async function createPost(e) {
     e.preventDefault();
-
-    // if (!title || !content) return;
 
     const response = await fetchApi(URL_API + "/dashboard/posts/", "POST", {
       title: newPost.title,
@@ -26,15 +25,14 @@ export default function CreatePost(props) {
   }
 
   return (
-    <>
-      <h2>Create new post</h2>
+    <section>
+      <Title props={{ title: "Create new post" }} />
       {isSubmitted ? (
         <p>Post submitted</p>
       ) : (
-        <form onSubmit={createPost}>
-          <label>Title:</label>
-          <br />
+        <form className="w-full" onSubmit={createPost}>
           <input
+            className="w-full bg-gray-700 border-transparent rounded"
             type="text"
             name="title"
             placeholder="Title..."
@@ -42,11 +40,10 @@ export default function CreatePost(props) {
             required
           />
           <br />
-          <label>Content:</label>
           <br />
           <textarea
+            className="w-full bg-gray-700 border-transparent rounded"
             rows="5"
-            cols="60"
             type="text"
             name="content"
             placeholder="Content..."
@@ -54,9 +51,14 @@ export default function CreatePost(props) {
             required
           />
           <br />
-          <button type="submit">Submit</button>
+          <button
+            className="mt-3 flex-shrink-0 border-transparent border-2 bg-gray-800 text-orange-500 hover:text-orange-700 text-sm p-2 rounded"
+            type="submit"
+          >
+            Submit
+          </button>
         </form>
       )}
-    </>
+    </section>
   );
 }

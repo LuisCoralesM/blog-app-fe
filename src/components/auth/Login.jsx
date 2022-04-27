@@ -3,6 +3,7 @@ import { URL_API } from "../../config";
 import { checkLogin } from "../../utils/checkLogin";
 import { setState } from "../../utils/hooks";
 import { fetchApi } from "../../utils/response";
+import Title from "../menu/Title";
 
 export default function Login({ props }) {
   const [user, setUser] = useState({
@@ -32,8 +33,8 @@ export default function Login({ props }) {
   }
 
   return (
-    <>
-      <h2>Login</h2>
+    <section>
+      <Title props={{ title: "Login" }} />
       {!hasLogged ? (
         <form onSubmit={loginUser}>
           <label>Username:</label>
@@ -60,6 +61,6 @@ export default function Login({ props }) {
       ) : (
         "Has logged!"
       )}
-    </>
+    </section>
   );
 }
