@@ -44,15 +44,21 @@ export default function EditProfile(props) {
         <>
           <p>Set new bio for your profile!</p>
           <ProfileItem key={profile?.id} profile={profile}></ProfileItem>
-          <form onSubmit={updateProfile}>
-            <input
+          <form className="mt-3" onSubmit={updateProfile}>
+            <textarea
+              className="w-full bg-gray-700 border-transparent rounded"
+              rows="5"
               type="text"
               placeholder="bio..."
               name="bio"
-              id="bio-input"
               onChange={(e) => setBio(e.target.value)}
             />
-            <button type="submit">Update</button>
+            <button
+              className="mt-3 flex-shrink-0 border-transparent border-2 bg-gray-800 text-orange-500 hover:text-orange-700 text-sm p-2 rounded"
+              type="submit"
+            >
+              Update
+            </button>
           </form>
         </>
       )}

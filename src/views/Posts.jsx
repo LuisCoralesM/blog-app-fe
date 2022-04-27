@@ -8,8 +8,7 @@ export default function Posts() {
     { link: "/dashboard/posts/create", text: "Create post" },
     { link: "/dashboard/posts/list", text: "List posts" },
     { link: "/dashboard/posts/search", text: "Search post by user" },
-    { link: "/dashboard/posts/edit", text: "Edit post" },
-    { link: "/dashboard/posts/delete", text: "Delete post" },
+    { link: "/dashboard/posts/actions", text: "Edit posts menu" },
   ];
   return (
     <section>

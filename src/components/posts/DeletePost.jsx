@@ -20,18 +20,23 @@ export default function DeletePost({ post }) {
   }
 
   return (
-    <section>
+    <>
       {!isDeleted ? (
         <>
           <p>Are you sure you want to delete the post?</p>
           <PostItem key={post?.id} post={post}></PostItem>
           <form onSubmit={deletePost}>
-            <button type="submit">Confirm delete</button>
+            <button
+              className="my-3 flex-shrink-0 border-transparent border-2 bg-gray-800 text-orange-500 hover:text-orange-700 text-sm p-2 rounded"
+              type="submit"
+            >
+              Confirm delete
+            </button>
           </form>
         </>
       ) : (
-        <p>Post deleted</p>
+        <p className="mb-3">Post deleted</p>
       )}
-    </section>
+    </>
   );
 }

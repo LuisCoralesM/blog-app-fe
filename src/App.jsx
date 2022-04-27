@@ -26,10 +26,9 @@ import SearchUser from "./components/users/SearchUser";
 import Posts from "./views/Posts";
 import ListPosts from "./components/posts/ListPosts";
 import MyPosts from "./components/posts/MyPosts";
-import DeletePostMenu from "./components/posts/DeletePostMenu";
-import EditPostMenu from "./components/posts/EditPostMenu";
 import CreatePost from "./components/posts/CreatePost";
 import SearchPost from "./components/posts/SearchPost";
+import ActionMenu from "./components/posts/ActionMenu";
 
 import MyProfile from "./components/profiles/MyProfile";
 import ListProfile from "./components/profiles/ListProfile";
@@ -38,7 +37,7 @@ import EditProfile from "./components/profiles/EditProfile";
 import { checkLogin } from "./utils/checkLogin";
 import Nav from "./components/nav/Nav";
 
-export function App() {
+export default function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [status, setStatus] = useState(true);
   const [isLogged, setIsLogged] = useState(false);
@@ -108,12 +107,8 @@ export function App() {
             <Route path="/dashboard/posts/myposts" element={<MyPosts />} />
             <Route path="/dashboard/posts/list" element={<ListPosts />} />
             <Route path="/dashboard/posts/search" element={<SearchPost />} />
-            <Route path="/dashboard/posts/edit" element={<EditPostMenu />} />
             <Route path="/dashboard/posts/myposts" element={<MyPosts />} />
-            <Route
-              path="/dashboard/posts/delete"
-              element={<DeletePostMenu />}
-            />
+            <Route path="/dashboard/posts/actions" element={<ActionMenu />} />
           </>
         ) : (
           <Route path="*" element={<Navigate to="/auth/login" replace />} />
