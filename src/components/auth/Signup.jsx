@@ -46,66 +46,91 @@ export default function Signup({ props }) {
   }
 
   return (
-    <section>
-      <Title props={{ title: "Register" }} />
-      {isLogged ? (
-        <p>You are logged!</p>
-      ) : !hasRegistered ? (
-        <form onSubmit={signupUser}>
-          <label>First name:</label>
-          <br />
-          <input
-            type="text"
-            name="firstName"
-            placeholder="John"
-            onChange={setState(setUser)}
-          />
-          <br />
-          <label>Last name:</label>
-          <br />
-          <input
-            type="text"
-            name="lastName"
-            placeholder="Doe..."
-            onChange={setState(setUser)}
-          />
-          <br />
-          <label>Username:</label>
-          <br />
-          <input
-            type="text"
-            name="username"
-            placeholder="johndoe123"
-            onChange={setState(setUser)}
-            required
-          />
-          <br />
-          <label>Email:</label>
-          <br />
-          <input
-            type="email"
-            name="email"
-            placeholder="john@email.com"
-            onChange={setState(setUser)}
-            required
-          />
-          <br />
-          <label>Password:</label>
-          <br />
-          <input
-            type="password"
-            name="password"
-            onChange={setState(setUser)}
-            required
-            minLength="8"
-            maxLength="12"
-          />
-          <br />
-          <button type="submit">Register</button>
-        </form>
-      ) : (
-        "Has registered!"
-      )}
+    <section className="mt-3">
+      <div className="w-full flex justify-center">
+        {isLogged ? (
+          <p className="font-bold">You are logged!</p>
+        ) : !hasRegistered ? (
+          <form
+            className="w-3/5 bg-gray-800 shadow-md rounded px-8 pt-6 pb-8 mb-4"
+            onSubmit={signupUser}
+          >
+            <Title props={{ title: "Register" }} />
+
+            <div className="mb-3">
+              <label className="block text-sm mb-2">First name</label>
+              <input
+                className="bg-gray-700 shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
+                type="text"
+                name="firstName"
+                placeholder="John"
+                onChange={setState(setUser)}
+              />
+            </div>
+
+            <div className="mb-3">
+              <label className="block text-sm mb-2">Last name</label>
+              <input
+                className="bg-gray-700 shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
+                type="text"
+                name="lastName"
+                placeholder="Doe..."
+                onChange={setState(setUser)}
+              />
+            </div>
+
+            <div className="mb-3">
+              <label className="block text-sm mb-2">Username</label>
+              <input
+                className="bg-gray-700 shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
+                type="text"
+                name="username"
+                placeholder="johndoe123"
+                onChange={setState(setUser)}
+                required
+              />
+            </div>
+
+            <div className="mb-3">
+              <label className="block text-sm mb-2" for="email">
+                Email
+              </label>
+              <input
+                className="bg-gray-700 shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
+                type="email"
+                name="email"
+                placeholder="john@email.com"
+                onChange={setState(setUser)}
+                required
+              />
+            </div>
+
+            <div className="mb-8">
+              <label className="block text-sm mb-2" for="password">
+                Password
+              </label>
+              <input
+                className="bg-gray-700 shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
+                type="password"
+                name="password"
+                onChange={setState(setUser)}
+                required
+                minLength="8"
+                maxLength="12"
+              />
+            </div>
+
+            <button
+              className="flex-shrink-0 border-transparent border-2 bg-gray-900 text-orange-500 hover:text-orange-700 text-sm p-2 rounded"
+              type="submit"
+            >
+              Register
+            </button>
+          </form>
+        ) : (
+          <p className="font-bold">Has registered!</p>
+        )}
+      </div>
     </section>
   );
 }

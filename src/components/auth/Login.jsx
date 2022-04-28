@@ -3,7 +3,6 @@ import { URL_API } from "../../config";
 import { checkLogin } from "../../utils/checkLogin";
 import { setState } from "../../utils/hooks";
 import { fetchApi } from "../../utils/response";
-import Title from "../menu/Title";
 
 export default function Login({ props }) {
   const [user, setUser] = useState({
@@ -33,34 +32,51 @@ export default function Login({ props }) {
   }
 
   return (
-    <section>
-      <Title props={{ title: "Login" }} />
-      {!hasLogged ? (
-        <form onSubmit={loginUser}>
-          <label>Username:</label>
-          <br />
-          <input
-            type="text"
-            name="username"
-            placeholder="johndoe123"
-            onChange={setState(setUser)}
-            required
-          />
-          <br />
-          <label>Password:</label>
-          <br />
-          <input
-            type="password"
-            name="password"
-            onChange={setState(setUser)}
-            required
-          />
-          <br />
-          <button type="submit">Login</button>
-        </form>
-      ) : (
-        "Has logged!"
-      )}
+    <section className="mt-3">
+      <div className="w-full flex justify-center">
+        {!hasLogged ? (
+          <form
+            className="w-3/5 bg-gray-800 shadow-md rounded px-8 pt-6 pb-8 mb-4"
+            onSubmit={loginUser}
+          >
+            <div className="mb-4">
+              <label className="block text-sm mb-2" for="username">
+                Username
+              </label>
+              <input
+                className="bg-gray-700 shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
+                type="text"
+                name="username"
+                placeholder="johndoe123"
+                onChange={setState(setUser)}
+                required
+              />
+            </div>
+
+            <div className="mb-3">
+              <label className="block text-sm mb-2" for="password">
+                Password
+              </label>
+              <input
+                className="bg-gray-700 shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                type="password"
+                name="password"
+                onChange={setState(setUser)}
+                required
+              />
+            </div>
+
+            <button
+              className="flex-shrink-0 border-transparent border-2 bg-gray-900 text-orange-500 hover:text-orange-700 text-sm p-2 rounded"
+              type="submit"
+            >
+              Login
+            </button>
+          </form>
+        ) : (
+          <p className="font-bold">Has logged!</p>
+        )}
+      </div>
     </section>
   );
 }

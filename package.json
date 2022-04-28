@@ -2,6 +2,7 @@
   "name": "blog-app-fe",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:5500/",
   "dependencies": {
     "@headlessui/react": "^1.5.0",
     "@heroicons/react": "^1.0.6",
@@ -42,6 +43,7 @@
     "@tailwindcss/forms": "^0.5.0",
     "autoprefixer": "^10.4.4",
     "postcss": "^8.4.12",
+    "react-test-renderer": "^18.1.0",
     "tailwindcss": "^3.0.24"
   }
 }
